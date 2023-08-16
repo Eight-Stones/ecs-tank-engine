@@ -1,20 +1,21 @@
 package main
 
 import (
-	"eight-stones/ecs-tank-engine/components"
+	"eight-stones/ecs-tank-engine/engine"
+	"eight-stones/ecs-tank-engine/engine/common"
 	"fmt"
 	"strconv"
 	"time"
 )
 
 func main() {
-	gf := components.Field{
-		Params: components.Params{
+	gf := engine.Field{
+		Params: engine.Params{
 			MaxGamers: 4,
 			FieldSize: 5,
 		},
 		Gamers: 0,
-		Border: components.Border{
+		Border: engine.Border{
 			X: 5,
 			Y: 5,
 		},
@@ -31,7 +32,7 @@ func main() {
 	go func() {
 		for i := 0; i < 5; i++ {
 			time.Sleep(time.Second)
-			fmt.Println(strconv.FormatInt(int64(gf.Move(uuid, components.Right)), 2))
+			fmt.Println(strconv.FormatInt(int64(gf.Move(uuid, common.Right)), 2))
 		}
 	}()
 
