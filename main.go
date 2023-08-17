@@ -4,8 +4,6 @@ import (
 	"eight-stones/ecs-tank-engine/engine"
 	"eight-stones/ecs-tank-engine/engine/common"
 	"fmt"
-	"strconv"
-	"time"
 )
 
 func main() {
@@ -26,10 +24,17 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+	_, err = gf.AddTank()
+	if err != nil {
+		panic(err)
+	}
 
 	gf.Start()
+	fmt.Println(gf.Info())
+	gf.Move(uuid, common.Right)
+	fmt.Println(gf.Info())
 
-	go func() {
+	/*go func() {
 		for i := 0; i < 5; i++ {
 			time.Sleep(time.Second)
 			fmt.Println(strconv.FormatInt(int64(gf.Move(uuid, common.Right)), 2))
@@ -40,6 +45,6 @@ func main() {
 		time.Sleep(time.Second)
 		fmt.Println(gf.Info())
 
-	}
+	}*/
 
 }

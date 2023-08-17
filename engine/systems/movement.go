@@ -10,6 +10,16 @@ type MovementSystem interface {
 	PositionSystem
 }
 
+type RotatementSystem interface {
+	GetMovement() *components.Movement
+	CanRotate()
+	PositionSystem
+}
+
+type NotInterruptMovementSystem interface {
+	DoesNotInterruptMovement()
+}
+
 type AutoMovementSystem interface {
 	CanAutoMove()
 	MovementSystem
@@ -20,13 +30,26 @@ func GetIncrementMoveSystem(direction uint) (x, y int) {
 	return values[0], values[1]
 }
 
-func StepMoveSystem(direction uint, in MovementSystem) {
-	incX, incY := GetIncrementMoveSystem(direction)
-	in.GetMovement().Direction = direction
-	ChangePosition(incX, incY, in)
+func CheckCollision(first MovementSystem, second PositionSystem) int {
+	if first == second {
+		return Fail
+	}
+
+	incX, incY := GetIncrementMoveSystem(first.GetMovement().Direction)
+	pMove := first.GetPosition()
+	pCllsn := second.GetPosition()
+
+	if pCllsn.X == pMove.X+incX && pCllsn.Y == pMove.Y+incY {
+		return Success
+	}
+	return Fail
 }
 
-func AutoStepMoveSystem(in AutoMovementSystem) {
+func RotateMoveSystem(direction uint, in RotatementSystem) {
+	in.GetMovement().Direction = direction
+}
+
+func StepMoveSystem(in MovementSystem) {
 	incX, incY := GetIncrementMoveSystem(in.GetMovement().Direction)
-	ChangePosition(incX, incY, in.GetPosition())
+	ChangePosition(incX, incY, in)
 }

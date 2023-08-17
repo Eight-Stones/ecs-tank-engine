@@ -1,5 +1,7 @@
 package components
 
-type Info struct {
+type Common struct {
 	Id string
 }
+
+func (c *Common) GetCommon() *Common { return c }
