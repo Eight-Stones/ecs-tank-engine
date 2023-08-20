@@ -9,9 +9,9 @@ type Damage struct {
 func (d *Damage) GetDamage() *Damage { return d }
 
 type Shooting struct {
-	Ammo    int
-	MaxAmmo int
-	Refill  time.Time
+	Ammo     int
+	MaxAmmo  int
+	Recharge time.Time
 }
 
 func (s *Shooting) GetShooting() *Shooting { return s }

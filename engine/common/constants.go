@@ -6,15 +6,17 @@ const (
 	NoneBreakBorder                  = 0b10
 	MoveSuccess                      = 0b100
 	MoveUnSuccess                    = 0b1000
-	NoneCollision                    = 0b10000
-	CollisionSuccess                 = 0b100000
-	CollisionSuccessNotInterruptMove = 0b1000000
-	Damaged                          = 0b10000000
-	BothDamaged                      = 0b100000000
-	ShotSuccess                      = 0b10000000000
-	ShotUnSuccess                    = 0b100000000000
-	TankFound                        = 0b1000000000000
-	TankNotFound                     = 0b10000000000000
+	RotateSuccess                    = 0b10000
+	RotateUnSuccess                  = 0b100000
+	NoneCollision                    = 0b1000000
+	CollisionSuccess                 = 0b10000000
+	CollisionSuccessNotInterruptMove = 0b100000000
+	Damaged                          = 0b1000000000
+	BothDamaged                      = 0b10000000000
+	ShotSuccess                      = 0b1000000000000
+	ShotUnSuccess                    = 0b10000000000000
+	TankFound                        = 0b100000000000000
+	TankNotFound                     = 0b1000000000000000
 )
 
 const (

@@ -2,13 +2,16 @@ package components
 
 type Movement struct {
 	Direction uint
+	Recharge
 }
 
 func (m *Movement) GetMovement() *Movement { return m }
 
-type Rotatement struct{}
+type Rotatement struct {
+	Recharge
+}
 
-func (r *Rotatement) CanRotate() {}
+func (r *Rotatement) GetRotatement() *Rotatement { return r }
 
 type NotInterruptMovement struct{}
 

@@ -3,6 +3,7 @@ package engine
 import (
 	"eight-stones/ecs-tank-engine/engine/common"
 	"eight-stones/ecs-tank-engine/engine/systems"
+	"time"
 )
 
 func (f *Field) rotate(id string, direction uint) int {
@@ -12,9 +13,15 @@ func (f *Field) rotate(id string, direction uint) int {
 		return doing
 	}
 
-	systems.RotateMoveSystem(direction, tank)
+	now := time.Now()
+	if !systems.CanRotate(tank, now) {
+		return doing | common.RotateUnSuccess
+	}
 
-	return doing
+	systems.RotateMoveSystem(direction, tank)
+	systems.SetRotateDone(tank, now)
+
+	return doing | common.RotateSuccess
 }
 
 func (f *Field) move(id string) int {

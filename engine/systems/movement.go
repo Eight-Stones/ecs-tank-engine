@@ -3,6 +3,7 @@ package systems
 import (
 	"eight-stones/ecs-tank-engine/engine/common"
 	"eight-stones/ecs-tank-engine/engine/components"
+	"time"
 )
 
 type MovementSystem interface {
@@ -12,7 +13,7 @@ type MovementSystem interface {
 
 type RotatementSystem interface {
 	GetMovement() *components.Movement
-	CanRotate()
+	GetRotatement() *components.Rotatement
 	PositionSystem
 }
 
@@ -45,8 +46,28 @@ func CheckCollision(first MovementSystem, second PositionSystem) int {
 	return Fail
 }
 
-func RotateMoveSystem(direction uint, in RotatementSystem) {
+func CanRotate(in RotatementSystem, now time.Time) bool {
+	recharge := in.GetRotatement().Recharge
+	if recharge.FreeAction != 0 && recharge.Until.After(now) {
+		return true
+	}
+	return false
+}
+
+func SetRotateDone(in RotatementSystem, now time.Time) {
+	recharge := in.GetRotatement().Recharge
+	recharge.DecFreeAction()
+	recharge.SetUntil(now)
+
+}
+
+func RotateMoveSystem(direction uint, in RotatementSystem) int {
+	if !CanRotate(in, time.Now()) {
+		return Fail
+	}
 	in.GetMovement().Direction = direction
+
+	return Success
 }
 
 func StepMoveSystem(in MovementSystem) {
