@@ -1,19 +1,22 @@
 package common
 
 const (
-	UndefinedDoing     = 0
-	Fail               = 0b1
-	Success            = 0b10
-	Border             = 0b100
-	Step               = 0b1000
-	Rotate             = 0b10000
-	Collision          = 0b100000
-	CollisionSuccess   = 0b1000000
-	NotInterruptAction = 0b100000000
-	Damaged            = 0b1000000000
-	BothDamaged        = 0b10000000000
-	Shot               = 0b1000000000000
-	NotFound           = 0b10000000000000
+	UndefinedDoing          = 0
+	Fail                    = 0b1
+	Ok                      = 0b10
+	OkBorder                = 0b100
+	FailBorder              = 0b1000
+	OkStep                  = 0b10000
+	FailStep                = 0b100000
+	OkRotate                = 0b1000000
+	FailRotate              = 0b10000000
+	OkCollision             = 0b100000000
+	FailCollision           = 0b1000000000
+	NotInterruptOkCollision = 0b100000000000
+	Damaged                 = 0b1000000000000
+	BothDamaged             = 0b10000000000000
+	Shot                    = 0b1000000000000000
+	NotFound                = 0b10000000000000000
 )
 
 const (

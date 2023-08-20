@@ -7,6 +7,7 @@ import (
 	"sync"
 )
 
+// MetaInfo метаинформация.
 type MetaInfo struct {
 	NumberGamers    int
 	MaxNumberGamers int
@@ -15,6 +16,7 @@ type MetaInfo struct {
 	PreSelectPlaces [][]int
 }
 
+// Field игровое поле.
 type Field struct {
 	mutex        sync.Mutex
 	cfg          *config.Config
@@ -23,6 +25,7 @@ type Field struct {
 	Objects      []systems.CommonSystem
 }
 
+// New возвращает объект игрового поля.
 func New(cfg *config.Config) Field {
 	return Field{
 		mutex:        sync.Mutex{},
@@ -38,6 +41,7 @@ func New(cfg *config.Config) Field {
 	}
 }
 
+// Info возвращает информацию об игровых объектах в свободной форме.
 func (f *Field) Info() map[string]interface{} {
 	result := make(map[string]interface{}, len(f.Objects))
 	for _, object := range f.Objects {
@@ -57,14 +61,18 @@ func (f *Field) Info() map[string]interface{} {
 	return result
 }
 
+// Start запускает процессы.
 func (f *Field) Start() {
-	places := [][]int{{0, 0}, {1, 0}, {15, 0}, {0, 15}} //[][]int{{0, 0}, {15, 15}, {15, 0}, {0, 15}}
-	cnt := 0
-	for _, obj := range f.Objects {
+	for idx, obj := range f.Objects {
 		if tank, ok := obj.(*entities.Tank); ok {
-			tank.Position.X = places[cnt][0]
-			tank.Position.Y = places[cnt][1]
-			cnt++
+			tank.Position.X = f.inf.PreSelectPlaces[idx][0]
+			tank.Position.Y = f.inf.PreSelectPlaces[idx][1]
 		}
 	}
+	// TODO start jobs
+}
+
+// Stop останавливает процессы.
+func (f *Field) Stop() {
+
 }

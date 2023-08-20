@@ -26,16 +26,16 @@ func TestCheckBitMask(t *testing.T) {
 		{
 			name: "check complex `Fail` and `Border` and result `Fail` and `Border",
 			args: args{
-				code:       common.Fail | common.Border,
-				conditions: []int{common.Fail, common.Border},
+				code:       common.Fail | common.OkBorder,
+				conditions: []int{common.Fail, common.OkBorder},
 			},
 			want: true,
 		},
 		{
 			name: "check complex `Fail` and `Border` and result `Fail` and `Border\"",
 			args: args{
-				code:       common.Fail | common.Border,
-				conditions: []int{common.Success, common.Border},
+				code:       common.Fail | common.OkBorder,
+				conditions: []int{common.Ok, common.OkBorder},
 			},
 			want: false,
 		},

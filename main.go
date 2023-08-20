@@ -28,7 +28,7 @@ func main() {
 	/*go func() {
 		for i := 0; i < 5; i++ {
 			time.Sleep(time.Second)
-			fmt.Println(strconv.FormatInt(int64(gf.Step(uuid, common.Right)), 2))
+			fmt.Println(strconv.FormatInt(int64(gf.OkStep(uuid, common.Right)), 2))
 		}
 	}()
 

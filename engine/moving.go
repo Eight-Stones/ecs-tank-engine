@@ -11,38 +11,38 @@ func (f *Field) rotate(id string, direction uint) int {
 	tank, code := f.find(id)
 	doing := 0b0 | code
 	if pkg.CheckBitMask(code, common.NotFound) {
-		return doing | common.Rotate | common.Fail
+		return doing | common.FailRotate
 	}
 
 	now := time.Now()
 	if !systems.CanRotate(tank, now) {
-		return doing | common.Rotate | common.Fail
+		return doing | common.FailRotate
 	}
 
 	systems.RotateMoveSystem(direction, tank)
 	systems.SetRotateDone(tank, now)
 
-	return doing | common.Rotate | common.Success
+	return doing | common.OkRotate
 }
 
 func (f *Field) move(id string) int {
 	tank, code := f.find(id)
 	doing := 0b0 | code
 
-	if pkg.CheckBitMask(code, common.NotFound) {
-		return doing | common.Step | common.Fail
+	if pkg.CheckBitMask(doing, common.NotFound) {
+		return doing | common.FailStep
 	}
 
 	now := time.Now()
 	if !systems.CanStep(tank, now) {
-		return doing | common.Step | common.Fail
+		return doing | common.FailStep
 	}
 
 	systems.SetStepDone(tank, now)
 
 	doing = doing | f.checkBorder(tank.Direction, tank)
-	if pkg.CheckBitMask(code, common.Fail, common.Border) {
-		return doing | common.Step | common.Fail
+	if pkg.CheckBitMask(doing, common.FailBorder) {
+		return doing | common.FailStep
 	}
 
 	canPositionObjects := f.getAllCanPosition()
@@ -50,13 +50,13 @@ func (f *Field) move(id string) int {
 		doing = doing | f.checkCollision(tank, obj)
 	}
 
-	if pkg.CheckBitMask(doing, common.Collision, common.Success) {
-		return doing | common.Step | common.Fail
+	if pkg.CheckBitMask(doing, common.OkCollision) {
+		return doing | common.FailStep
 	}
 
 	systems.StepMoveSystem(tank)
 
-	doing = doing | common.Step | common.Success
+	doing = doing | common.OkStep
 
 	return doing
 }

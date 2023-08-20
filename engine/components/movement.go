@@ -2,13 +2,13 @@ package components
 
 type Movement struct {
 	Direction uint
-	Recharge
+	*Recharge
 }
 
 func (m *Movement) GetMovement() *Movement { return m }
 
 type Rotatement struct {
-	Recharge
+	*Recharge
 }
 
 func (r *Rotatement) GetRotatement() *Rotatement { return r }

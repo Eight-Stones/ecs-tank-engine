@@ -14,7 +14,7 @@ func (f *Field) Rotate(id string, direction uint) int {
 func (f *Field) Move(id string, direction uint) int {
 	code := f.rotate(id, direction)
 
-	if pkg.CheckBitMask(code, common.Rotate, common.Fail) {
+	if pkg.CheckBitMask(code, common.FailRotate) {
 		return code
 	}
 	return code | f.move(id)

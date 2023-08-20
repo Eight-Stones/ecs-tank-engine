@@ -25,14 +25,14 @@ func NewTank(cfg *config.TankConfig) Tank {
 			Y: -1,
 		},
 		Movement: components.Movement{
-			Recharge: components.Recharge{
+			Recharge: &components.Recharge{
 				DefaultDuration: cfg.MoveRechargeDefaultDuration,
 				FreeAction:      cfg.MoveRechargeFreeAction,
 				MaxAction:       cfg.MoveRechargeMaxAction,
 			},
 		},
 		Rotatement: components.Rotatement{
-			Recharge: components.Recharge{
+			Recharge: &components.Recharge{
 				DefaultDuration: cfg.RotateRechargeDefaultDuration,
 				FreeAction:      cfg.RotateRechargeFreeAction,
 				MaxAction:       cfg.RotateRechargeMaxAction,

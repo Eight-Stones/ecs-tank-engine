@@ -48,7 +48,7 @@ func CheckCollision(first MovementSystem, second PositionSystem) int {
 
 func CanRotate(in RotatementSystem, now time.Time) bool {
 	recharge := in.GetRotatement().Recharge
-	if recharge.FreeAction != 0 && recharge.Until.After(now) {
+	if recharge.FreeAction != 0 && recharge.Until.Before(now) {
 		return true
 	}
 	return false
@@ -67,7 +67,7 @@ func RotateMoveSystem(direction uint, in RotatementSystem) {
 
 func CanStep(in MovementSystem, now time.Time) bool {
 	recharge := in.GetMovement().Recharge
-	if recharge.FreeAction != 0 && recharge.Until.After(now) {
+	if recharge.FreeAction != 0 && recharge.Until.Before(now) {
 		return true
 	}
 	return false

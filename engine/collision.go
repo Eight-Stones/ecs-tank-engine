@@ -9,25 +9,25 @@ func (f *Field) checkBorder(direction uint, in systems.PositionSystem) int {
 	incX, incY := systems.GetIncrementMoveSystem(direction)
 	object := in.GetPosition()
 	if object.X+incX < 0 || object.X+incX > f.inf.SizeX || object.Y+incY < 0 || object.Y+incY > f.inf.SizeY {
-		return common.Fail | common.Border
+		return common.FailBorder
 	}
-	return common.Success | common.Border
+	return common.OkBorder
 }
 
 func (f *Field) checkCollision(first systems.MovementSystem, second systems.PositionSystem) int {
 	if systems.CheckCollision(first, second) == systems.Fail {
-		return common.Collision | common.Fail
+		return common.FailCollision
 	}
 
 	if f.makeCollision(first.(systems.CommonSystem), second.(systems.CommonSystem)) == common.DoNothing {
-		return common.Collision | common.Success
+		return common.OkCollision
 	}
 
 	if _, ok := second.(systems.NotInterruptMovementSystem); ok {
-		return common.Collision | common.NotInterruptAction
+		return common.NotInterruptOkCollision
 	}
 
-	return common.Collision | common.Success
+	return common.OkCollision
 
 }
 
