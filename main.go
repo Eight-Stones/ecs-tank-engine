@@ -22,7 +22,8 @@ func main() {
 
 	gf.Start()
 	fmt.Println(gf.Info())
-	gf.Move(uuid, common.Right)
+	code := gf.Move(uuid, common.Right)
+	fmt.Println(common.Translate(code))
 	fmt.Println(gf.Info())
 
 	/*go func() {

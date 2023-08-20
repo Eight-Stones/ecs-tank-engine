@@ -51,7 +51,7 @@ func (f *Field) move(id string) int {
 	}
 
 	if pkg.CheckBitMask(doing, common.OkCollision) {
-		return doing | common.FailStep
+		return (doing ^ common.FailCollision) | common.FailStep
 	}
 
 	systems.StepMoveSystem(tank)

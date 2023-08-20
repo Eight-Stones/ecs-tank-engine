@@ -1,7 +1,6 @@
 package common
 
 const (
-	UndefinedDoing          = 0
 	Fail                    = 0b1
 	Ok                      = 0b10
 	OkBorder                = 0b100
@@ -15,9 +14,47 @@ const (
 	NotInterruptOkCollision = 0b100000000000
 	Damaged                 = 0b1000000000000
 	BothDamaged             = 0b10000000000000
-	Shot                    = 0b1000000000000000
-	NotFound                = 0b10000000000000000
+	OkShot                  = 0b1000000000000000
+	FailShot                = 0b10000000000000000
+	Found                   = 0b100000000000000000
+	NotFound                = 0b1000000000000000000
 )
+
+var aliases = map[int]string{
+	Fail:                    "неудача",
+	Ok:                      "успех",
+	OkBorder:                "отсутствие нарушения границ карты",
+	FailBorder:              "попытка выйти за границы",
+	OkStep:                  "успешное движение",
+	FailStep:                "неудачное движение",
+	OkRotate:                "успешный поворот",
+	FailRotate:              "неудачный поворот",
+	OkCollision:             "наличие столкновление",
+	FailCollision:           "отсутстие столкновения",
+	NotInterruptOkCollision: "наличие столкновение без прерывания",
+	Damaged:                 "получение урона",
+	BothDamaged:             "совместное получение урона",
+	Found:                   "объект найден",
+	NotFound:                "объект не найден",
+}
+
+var order = []int{
+	Found,
+	NotFound,
+	OkRotate,
+	FailRotate,
+	OkBorder,
+	FailBorder,
+	OkCollision,
+	FailCollision,
+	NotInterruptOkCollision,
+	OkStep,
+	FailStep,
+	Damaged,
+	BothDamaged,
+	Fail,
+	Ok,
+}
 
 const (
 	Undefined = iota

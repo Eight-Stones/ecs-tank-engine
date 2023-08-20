@@ -14,7 +14,7 @@ func (f *Field) find(id string) (*entities.Tank, int) {
 			continue
 		}
 		if obj.Common.Id == id {
-			return obj, common.Ok
+			return obj, common.Found
 		}
 	}
 	return nil, common.NotFound
