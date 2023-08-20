@@ -2,11 +2,9 @@ package engine
 
 import (
 	"eight-stones/ecs-tank-engine/engine/common"
-	"eight-stones/ecs-tank-engine/engine/components"
 	"eight-stones/ecs-tank-engine/engine/entities"
 	"eight-stones/ecs-tank-engine/engine/systems"
 	"errors"
-	"github.com/google/uuid"
 )
 
 func (f *Field) find(id string) (*entities.Tank, int) {
@@ -16,10 +14,10 @@ func (f *Field) find(id string) (*entities.Tank, int) {
 			continue
 		}
 		if obj.Common.Id == id {
-			return obj, common.TankFound
+			return obj, common.Success
 		}
 	}
-	return nil, common.TankNotFound
+	return nil, common.NotFound
 }
 
 func (f *Field) getAllCanPosition() []systems.PositionSystem {
@@ -53,33 +51,13 @@ func (f *Field) getAllCanAutoMovement() []systems.AutoMovementSystem {
 }
 
 func (f *Field) AddTank() (string, error) {
-	if f.Gamers >= f.MaxGamers {
+	if f.NumberGamers >= f.cfg.Game.MaxGamers {
 		return "", errors.New("too much players")
 	}
 
-	tank := &entities.Tank{
-		Common: components.Common{
-			Id: uuid.New().String(),
-		},
-		Position: components.Position{
-			X: -1,
-			Y: -1,
-		},
-		Movement: components.Movement{
-			Direction: common.Undefined,
-		},
-		Health: components.Health{
-			HitPoints:    100,
-			MaxHitPoints: 150,
-		},
-		Damage: components.Damage{
-			DamagePoints: 30,
-		},
-	}
-
-	f.Objects = append(f.Objects, tank)
-
-	f.Gamers++
+	tank := entities.NewTank(&f.cfg.Tank)
+	f.Objects = append(f.Objects, &tank)
+	f.NumberGamers++
 
 	return tank.Id, nil
 }

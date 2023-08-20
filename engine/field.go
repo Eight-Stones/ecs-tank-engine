@@ -1,27 +1,41 @@
 package engine
 
 import (
+	"eight-stones/ecs-tank-engine/engine/config"
 	"eight-stones/ecs-tank-engine/engine/entities"
 	"eight-stones/ecs-tank-engine/engine/systems"
 	"sync"
 )
 
-type Border struct {
-	X int
-	Y int
-}
-
-type Params struct {
-	MaxGamers int
-	FieldSize int
+type MetaInfo struct {
+	NumberGamers    int
+	MaxNumberGamers int
+	SizeX           int
+	SizeY           int
+	PreSelectPlaces [][]int
 }
 
 type Field struct {
-	mutex sync.Mutex
-	Params
-	Gamers  int
-	Border  Border
-	Objects []systems.CommonSystem
+	mutex        sync.Mutex
+	cfg          *config.Config
+	inf          MetaInfo
+	NumberGamers int
+	Objects      []systems.CommonSystem
+}
+
+func New(cfg *config.Config) Field {
+	return Field{
+		mutex:        sync.Mutex{},
+		cfg:          cfg,
+		NumberGamers: 0,
+		inf: MetaInfo{
+			MaxNumberGamers: cfg.Game.MaxGamers,
+			SizeX:           cfg.Game.SizeX,
+			SizeY:           cfg.Game.SizeY,
+			PreSelectPlaces: cfg.Game.PreSelectPlaces,
+		},
+		Objects: nil,
+	}
 }
 
 func (f *Field) Info() map[string]interface{} {

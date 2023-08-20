@@ -2,6 +2,7 @@ package entities
 
 import (
 	"eight-stones/ecs-tank-engine/engine/components"
+	"eight-stones/ecs-tank-engine/engine/config"
 	"github.com/google/uuid"
 )
 
@@ -14,37 +15,35 @@ type Tank struct {
 	components.Damage
 }
 
-func NewTank() Tank {
+func NewTank(cfg *config.TankConfig) Tank {
 	return Tank{
 		Common: components.Common{
-			Id:     uuid.New().String(),
-			Parent: nil,
+			Id: uuid.New().String(),
 		},
 		Position: components.Position{
 			X: -1,
 			Y: -1,
 		},
 		Movement: components.Movement{
-			Direction: 0,
 			Recharge: components.Recharge{
-				DefaultDuration: 0,
-				FreeAction:      0,
-				MaxAction:       0,
+				DefaultDuration: cfg.MoveRechargeDefaultDuration,
+				FreeAction:      cfg.MoveRechargeFreeAction,
+				MaxAction:       cfg.MoveRechargeMaxAction,
 			},
 		},
 		Rotatement: components.Rotatement{
 			Recharge: components.Recharge{
-				DefaultDuration: 0,
-				FreeAction:      0,
-				MaxAction:       0,
+				DefaultDuration: cfg.RotateRechargeDefaultDuration,
+				FreeAction:      cfg.RotateRechargeFreeAction,
+				MaxAction:       cfg.RotateRechargeMaxAction,
 			},
 		},
 		Health: components.Health{
-			HitPoints:    0,
-			MaxHitPoints: 0,
+			HitPoints:    cfg.HitPoints,
+			MaxHitPoints: cfg.MaxHitPoints,
 		},
 		Damage: components.Damage{
-			DamagePoints: 0,
+			DamagePoints: cfg.DamagePoints,
 		},
 	}
 }

@@ -61,13 +61,23 @@ func SetRotateDone(in RotatementSystem, now time.Time) {
 
 }
 
-func RotateMoveSystem(direction uint, in RotatementSystem) int {
-	if !CanRotate(in, time.Now()) {
-		return Fail
-	}
+func RotateMoveSystem(direction uint, in RotatementSystem) {
 	in.GetMovement().Direction = direction
+}
 
-	return Success
+func CanStep(in MovementSystem, now time.Time) bool {
+	recharge := in.GetMovement().Recharge
+	if recharge.FreeAction != 0 && recharge.Until.After(now) {
+		return true
+	}
+	return false
+}
+
+func SetStepDone(in MovementSystem, now time.Time) {
+	recharge := in.GetMovement().Recharge
+	recharge.DecFreeAction()
+	recharge.SetUntil(now)
+
 }
 
 func StepMoveSystem(in MovementSystem) {

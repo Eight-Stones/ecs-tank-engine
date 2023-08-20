@@ -2,6 +2,7 @@ package engine
 
 import (
 	"eight-stones/ecs-tank-engine/engine/common"
+	"eight-stones/ecs-tank-engine/engine/pkg"
 	"eight-stones/ecs-tank-engine/engine/systems"
 	"time"
 )
@@ -9,31 +10,39 @@ import (
 func (f *Field) rotate(id string, direction uint) int {
 	tank, code := f.find(id)
 	doing := 0b0 | code
-	if code&common.TankNotFound == common.TankNotFound {
-		return doing
+	if pkg.CheckBitMask(code, common.NotFound) {
+		return doing | common.Rotate | common.Fail
 	}
 
 	now := time.Now()
 	if !systems.CanRotate(tank, now) {
-		return doing | common.RotateUnSuccess
+		return doing | common.Rotate | common.Fail
 	}
 
 	systems.RotateMoveSystem(direction, tank)
 	systems.SetRotateDone(tank, now)
 
-	return doing | common.RotateSuccess
+	return doing | common.Rotate | common.Success
 }
 
 func (f *Field) move(id string) int {
 	tank, code := f.find(id)
 	doing := 0b0 | code
-	if code&common.TankNotFound == common.TankNotFound {
-		return doing
+
+	if pkg.CheckBitMask(code, common.NotFound) {
+		return doing | common.Step | common.Fail
 	}
 
+	now := time.Now()
+	if !systems.CanStep(tank, now) {
+		return doing | common.Step | common.Fail
+	}
+
+	systems.SetStepDone(tank, now)
+
 	doing = doing | f.checkBorder(tank.Direction, tank)
-	if doing&common.BreakBorder == common.BreakBorder {
-		return doing
+	if pkg.CheckBitMask(code, common.Fail, common.Border) {
+		return doing | common.Step | common.Fail
 	}
 
 	canPositionObjects := f.getAllCanPosition()
@@ -41,13 +50,13 @@ func (f *Field) move(id string) int {
 		doing = doing | f.checkCollision(tank, obj)
 	}
 
-	if doing&common.CollisionSuccess == common.CollisionSuccess {
-		return doing
+	if pkg.CheckBitMask(doing, common.Collision, common.Success) {
+		return doing | common.Step | common.Fail
 	}
 
 	systems.StepMoveSystem(tank)
 
-	doing = doing | common.MoveSuccess
+	doing = doing | common.Step | common.Success
 
 	return doing
 }

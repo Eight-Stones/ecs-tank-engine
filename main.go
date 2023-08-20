@@ -3,22 +3,13 @@ package main
 import (
 	"eight-stones/ecs-tank-engine/engine"
 	"eight-stones/ecs-tank-engine/engine/common"
+	"eight-stones/ecs-tank-engine/engine/config"
 	"fmt"
 )
 
 func main() {
-	gf := engine.Field{
-		Params: engine.Params{
-			MaxGamers: 4,
-			FieldSize: 5,
-		},
-		Gamers: 0,
-		Border: engine.Border{
-			X: 5,
-			Y: 5,
-		},
-		Objects: nil,
-	}
+	cfg := config.Default()
+	gf := engine.New(cfg)
 
 	uuid, err := gf.AddTank()
 	if err != nil {
@@ -37,7 +28,7 @@ func main() {
 	/*go func() {
 		for i := 0; i < 5; i++ {
 			time.Sleep(time.Second)
-			fmt.Println(strconv.FormatInt(int64(gf.Move(uuid, common.Right)), 2))
+			fmt.Println(strconv.FormatInt(int64(gf.Step(uuid, common.Right)), 2))
 		}
 	}()
 

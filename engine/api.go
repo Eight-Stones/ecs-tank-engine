@@ -1,6 +1,9 @@
 package engine
 
-import "eight-stones/ecs-tank-engine/engine/common"
+import (
+	"eight-stones/ecs-tank-engine/engine/common"
+	"eight-stones/ecs-tank-engine/engine/pkg"
+)
 
 // Rotate rotates entities.Tank.
 func (f *Field) Rotate(id string, direction uint) int {
@@ -10,7 +13,8 @@ func (f *Field) Rotate(id string, direction uint) int {
 // Move moves entities.Tank in select direction.
 func (f *Field) Move(id string, direction uint) int {
 	code := f.rotate(id, direction)
-	if code&common.RotateUnSuccess == common.RotateUnSuccess {
+
+	if pkg.CheckBitMask(code, common.Rotate, common.Fail) {
 		return code
 	}
 	return code | f.move(id)
