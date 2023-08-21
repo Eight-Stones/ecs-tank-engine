@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"context"
 	"eight-stones/ecs-tank-engine/engine/config"
 	"eight-stones/ecs-tank-engine/engine/entities"
 	"eight-stones/ecs-tank-engine/engine/systems"
@@ -16,28 +17,38 @@ type MetaInfo struct {
 	PreSelectPlaces [][]int
 }
 
+type AppInfo struct {
+	mutex *sync.Mutex
+	jobWG *sync.WaitGroup
+}
+
 // Field игровое поле.
 type Field struct {
-	mutex        sync.Mutex
 	cfg          *config.Config
-	inf          MetaInfo
+	appInfo      AppInfo
+	metaInfo     MetaInfo
 	NumberGamers int
 	Objects      []systems.CommonSystem
+	DeadObjects  []systems.CommonSystem
 }
 
 // New возвращает объект игрового поля.
 func New(cfg *config.Config) Field {
 	return Field{
-		mutex:        sync.Mutex{},
-		cfg:          cfg,
-		NumberGamers: 0,
-		inf: MetaInfo{
+		cfg: cfg,
+		appInfo: AppInfo{
+			mutex: &sync.Mutex{},
+			jobWG: &sync.WaitGroup{},
+		},
+		metaInfo: MetaInfo{
 			MaxNumberGamers: cfg.Game.MaxGamers,
 			SizeX:           cfg.Game.SizeX,
 			SizeY:           cfg.Game.SizeY,
 			PreSelectPlaces: cfg.Game.PreSelectPlaces,
 		},
-		Objects: nil,
+		NumberGamers: 0,
+		Objects:      nil,
+		DeadObjects:  nil,
 	}
 }
 
@@ -62,17 +73,12 @@ func (f *Field) Info() map[string]interface{} {
 }
 
 // Start запускает процессы.
-func (f *Field) Start() {
+func (f *Field) Start(ctx context.Context) {
 	for idx, obj := range f.Objects {
 		if tank, ok := obj.(*entities.Tank); ok {
-			tank.Position.X = f.inf.PreSelectPlaces[idx][0]
-			tank.Position.Y = f.inf.PreSelectPlaces[idx][1]
+			tank.Position.X = f.metaInfo.PreSelectPlaces[idx][0]
+			tank.Position.Y = f.metaInfo.PreSelectPlaces[idx][1]
 		}
 	}
-	// TODO start jobs
-}
-
-// Stop останавливает процессы.
-func (f *Field) Stop() {
-
+	f.runJobs(ctx)
 }

@@ -8,6 +8,7 @@ import (
 
 type Tank struct {
 	components.Common
+	components.Statistic
 	components.Position
 	components.Movement
 	components.Rotatement
@@ -27,15 +28,11 @@ func NewTank(cfg *config.TankConfig) Tank {
 		Movement: components.Movement{
 			Recharge: &components.Recharge{
 				DefaultDuration: cfg.MoveRechargeDefaultDuration,
-				FreeAction:      cfg.MoveRechargeFreeAction,
-				MaxAction:       cfg.MoveRechargeMaxAction,
 			},
 		},
 		Rotatement: components.Rotatement{
 			Recharge: &components.Recharge{
 				DefaultDuration: cfg.RotateRechargeDefaultDuration,
-				FreeAction:      cfg.RotateRechargeFreeAction,
-				MaxAction:       cfg.RotateRechargeMaxAction,
 			},
 		},
 		Health: components.Health{

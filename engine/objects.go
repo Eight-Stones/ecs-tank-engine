@@ -50,6 +50,20 @@ func (f *Field) getAllCanAutoMovement() []systems.AutoMovementSystem {
 	return result
 }
 
+func (f *Field) getAllCanRecharged() []systems.CommonSystem {
+	var result []systems.CommonSystem
+	for idx := range f.Objects {
+		if _, ok := f.Objects[idx].(systems.AutoMovementSystem); ok {
+			result = append(result, f.Objects[idx])
+			continue
+		}
+		if _, ok := f.Objects[idx].(systems.RotatementSystem); ok {
+			result = append(result, f.Objects[idx])
+		}
+	}
+	return result
+}
+
 func (f *Field) AddTank() (string, error) {
 	if f.NumberGamers >= f.cfg.Game.MaxGamers {
 		return "", errors.New("too much players")
