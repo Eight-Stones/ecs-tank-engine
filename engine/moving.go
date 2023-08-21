@@ -16,7 +16,7 @@ func (f *Field) rotate(id string, direction uint) int {
 
 	now := time.Now()
 	if !systems.CanRotate(tank, now) {
-		return doing | common.FailRotate
+		return doing | common.FailRotate | common.Ban
 	}
 
 	systems.RotateMoveSystem(direction, tank)
@@ -35,7 +35,7 @@ func (f *Field) move(id string) int {
 
 	now := time.Now()
 	if !systems.CanStep(tank, now) {
-		return doing | common.FailStep
+		return doing | common.FailStep | common.Ban
 	}
 
 	systems.SetStepDone(tank, now)
