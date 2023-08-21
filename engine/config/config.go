@@ -35,7 +35,7 @@ func Default() *Config {
 			MaxGamers:       4,
 			SizeX:           15,
 			SizeY:           15,
-			PreSelectPlaces: [][]int{{0, 0}, {15, 15}, {15, 0}, {0, 15}},
+			PreSelectPlaces: [][]int{{0, 0}, {14, 14}, {14, 0}, {0, 14}},
 			Jobs: JobsConfig{
 				AutoMover: time.Second,
 				Recharger: time.Millisecond * 100,

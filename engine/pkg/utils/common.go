@@ -1,4 +1,4 @@
-package pkg
+package utils
 
 // CheckBitMask проверяет, что code содержит все биты из списка conditions.
 func CheckBitMask(code int, conditions ...int) bool {

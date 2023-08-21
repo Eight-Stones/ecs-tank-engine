@@ -2,7 +2,7 @@ package engine
 
 import (
 	"eight-stones/ecs-tank-engine/engine/common"
-	"eight-stones/ecs-tank-engine/engine/pkg"
+	"eight-stones/ecs-tank-engine/engine/pkg/utils"
 )
 
 // Rotate rotates entities.Tank.
@@ -14,7 +14,7 @@ func (f *Field) Rotate(id string, direction uint) int {
 func (f *Field) Move(id string, direction uint) int {
 	code := f.rotate(id, direction)
 
-	if pkg.CheckBitMask(code, common.FailRotate) {
+	if utils.CheckBitMask(code, common.FailRotate) {
 		return code
 	}
 	return code | f.move(id)

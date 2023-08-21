@@ -2,10 +2,13 @@ package engine
 
 import (
 	"context"
+	"eight-stones/ecs-tank-engine/engine/common"
 	"eight-stones/ecs-tank-engine/engine/config"
 	"eight-stones/ecs-tank-engine/engine/entities"
+	"eight-stones/ecs-tank-engine/engine/pkg/helper"
 	"eight-stones/ecs-tank-engine/engine/systems"
 	"sync"
+	"time"
 )
 
 // MetaInfo метаинформация.
@@ -53,16 +56,32 @@ func New(cfg *config.Config) Field {
 }
 
 // Info возвращает информацию об игровых объектах в свободной форме.
-func (f *Field) Info() map[string]interface{} {
-	result := make(map[string]interface{}, len(f.Objects))
+func (f *Field) Info() map[string]map[string]interface{} {
+	result := make(map[string]map[string]interface{}, len(f.Objects))
 	for _, object := range f.Objects {
 		m := make(map[string]interface{})
+
+		switch object.(type) {
+		case *entities.Tank:
+			m[common.KeyObjectKind] = common.KeyObjectTank
+		case *entities.Bullet:
+			m[common.KeyObjectKind] = common.KeyObjectTank
+		}
+
 		if obj, ok := object.(systems.PositionSystem); ok {
-			m["coord"] = []int{obj.GetPosition().X, obj.GetPosition().Y}
+			m[common.KeyPositionCoordinate] = []int{obj.GetPosition().X, obj.GetPosition().Y}
+		}
+
+		if obj, ok := object.(systems.MovementSystem); ok {
+			m[common.KeyMovementDirection] = obj.GetMovement().Direction
 		}
 
 		if obj, ok := object.(systems.HealthSystem); ok {
-			m["health"] = obj.GetHealth().HitPoints
+			m[common.KeyStatHitPoints] = obj.GetHealth().HitPoints
+		}
+
+		if obj, ok := object.(systems.DamageSystem); ok {
+			m[common.KeyStatDamage] = obj.GetDamage().DamagePoints
 		}
 
 		obj := object.(systems.CommonSystem)
@@ -70,6 +89,18 @@ func (f *Field) Info() map[string]interface{} {
 		result[obj.GetCommon().Id] = m
 	}
 	return result
+}
+
+func (f *Field) DrawConsole(ctx context.Context) {
+	ticker := time.NewTicker(time.Millisecond * 100)
+	for {
+		select {
+		case <-ctx.Done():
+			return
+		case <-ticker.C:
+			helper.DrawField(f.metaInfo.SizeX, f.metaInfo.SizeY, f.Info())
+		}
+	}
 }
 
 // Start запускает процессы.

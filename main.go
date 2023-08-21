@@ -25,21 +25,20 @@ func main() {
 
 	ctx, cancel := context.WithCancel(context.Background())
 	gf.Start(ctx)
-	fmt.Println(gf.Info())
+	go gf.DrawConsole(ctx)
 
 	code := gf.Move(uuid, common.Right)
 	fmt.Println(common.Translate(code))
-	fmt.Println(gf.Info())
 	time.Sleep(time.Millisecond * 500)
 
 	code = gf.Move(uuid, common.Right)
 	fmt.Println(common.Translate(code))
-	fmt.Println(gf.Info())
 	time.Sleep(time.Second)
 
 	code = gf.Move(uuid, common.Right)
 	fmt.Println(common.Translate(code))
-	fmt.Println(gf.Info())
+
+	time.Sleep(time.Second)
 
 	cancel()
 
