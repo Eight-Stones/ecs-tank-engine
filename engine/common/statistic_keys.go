@@ -2,8 +2,8 @@ package common
 
 const (
 	KeyObjectKind   = "kind"
-	KeyObjectTank   = "tank"
-	KeyObjectBullet = "bullet"
+	KeyObjectTank   = "Ⓣ"
+	KeyObjectBullet = "٭"
 )
 
 const (

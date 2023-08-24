@@ -63,10 +63,37 @@ func (i info) String() string {
 	)
 }
 
-// DrawField отрисовывает в консоли игровые данные.
-//
-// TODO: переосмыслить вывод представления игрового поля и общий вывод в поток, а не принтами.
-func DrawField(x, y int, in map[string]map[string]interface{}) {
+func drawHeader(objects []info) {
+	fmt.Printf("****************\n* PLAYERS INFO *\n****************\n")
+	fmt.Println("--------------------------------------------------------------------------------------------------------------------------")
+	fmt.Println("|\t ID \t\t\t\t\t | \t KIND \t | \t HP \t | \t COORDINATES \t | \t DIR \t |")
+	fmt.Println("--------------------------------------------------------------------------------------------------------------------------")
+	for i := range objects {
+		fmt.Println(objects[i])
+		fmt.Println("--------------------------------------------------------------------------------------------------------------------------")
+	}
+}
+
+func drawMap(view [][]string) {
+	fmt.Printf("**************\n* GAME FIELD *\n**************\n")
+	for idy := len(view) - 1; idy >= 0; idy-- {
+		for idx := 0; idx < len(view[idy]); idx++ {
+			fmt.Print(view[idy][idx] + "  ")
+		}
+		fmt.Printf("  %d\n", idy)
+	}
+
+	for i := 0; i < len(view); i++ {
+		if len(strconv.Itoa(i)) == 2 {
+			fmt.Print(strconv.Itoa(i) + " ")
+			continue
+		}
+		fmt.Print(strconv.Itoa(i) + "  ")
+	}
+	fmt.Println()
+}
+
+func prepareObjects(in map[string]map[string]interface{}) []info {
 	objects := make([]info, 0, len(in))
 	for key, value := range in {
 		coordinates := value[common.KeyPositionCoordinate].([]int)
@@ -87,8 +114,11 @@ func DrawField(x, y int, in map[string]map[string]interface{}) {
 	sort.SliceStable(objects, func(i, j int) bool {
 		return objects[i].Id < objects[j].Id
 	})
-	clear()
 
+	return objects
+}
+
+func prepareView(x, y int, objects []info) [][]string {
 	view := make([][]string, y)
 	for idx := range view {
 		view[idx] = make([]string, x)
@@ -100,31 +130,20 @@ func DrawField(x, y int, in map[string]map[string]interface{}) {
 		}
 	}
 
-	fmt.Printf("****************\n* PLAYERS INFO *\n****************\n")
-	fmt.Println("--------------------------------------------------------------------------------------------------------------------------")
-	fmt.Println("|\t ID \t\t\t\t\t | \t KIND \t | \t HP \t | \t COORDINATES \t | \t DIR \t |")
-	fmt.Println("--------------------------------------------------------------------------------------------------------------------------")
-	for i := range objects {
-		fmt.Println(objects[i])
-		view[objects[i].Position.Y][objects[i].Position.X] = "T"
-		fmt.Println("--------------------------------------------------------------------------------------------------------------------------")
+	for idx := range objects {
+		view[objects[idx].Position.Y][objects[idx].Position.X] = objects[idx].Kind
 	}
 
-	fmt.Printf("**************\n* GAME FIELD *\n**************\n")
+	return view
+}
 
-	for idy := len(view) - 1; idy >= 0; idy-- {
-		for idx := 0; idx < len(view[idy]); idx++ {
-			fmt.Print(view[idy][idx] + "  ")
-		}
-		fmt.Printf("  %d\n", idy)
-	}
-	str := ""
-	for i := 0; i < len(view); i++ {
-		if len(strconv.Itoa(i)) == 2 {
-			str += strconv.Itoa(i) + " "
-			continue
-		}
-		str += strconv.Itoa(i) + "  "
-	}
-	fmt.Println(str)
+// DrawField отрисовывает в консоли игровые данные.
+//
+// TODO: переосмыслить вывод представления игрового поля и общий вывод в поток, а не принтами.
+func DrawField(x, y int, in map[string]map[string]interface{}) {
+	objects := prepareObjects(in)
+	view := prepareView(x, y, objects)
+	clear()
+	drawHeader(objects)
+	drawMap(view)
 }

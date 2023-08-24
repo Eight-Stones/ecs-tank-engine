@@ -36,12 +36,6 @@ const (
 	CanDamagedAndDamage = 0b11
 )
 
-const (
-	CollisionBothDamage   = 0b1
-	CollisionFirstDamage  = 0b10
-	CollisionSecondDamage = 0b100
-)
-
 var MovementValue = map[uint][]int{
 	Left:  {-1, 0},
 	Right: {1, 0},
