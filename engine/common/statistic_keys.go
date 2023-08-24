@@ -3,7 +3,7 @@ package common
 const (
 	KeyObjectKind   = "kind"
 	KeyObjectTank   = "Ⓣ"
-	KeyObjectBullet = "٭"
+	KeyObjectBullet = "⍟"
 )
 
 const (

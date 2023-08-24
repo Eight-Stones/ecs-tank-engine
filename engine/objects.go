@@ -7,17 +7,23 @@ import (
 	"errors"
 )
 
-func (f *Field) find(id string) (*entities.Tank, int) {
+func (f *Field) find(id string) (systems.CommonSystem, int) {
 	for idx := range f.Objects {
-		obj, ok := f.Objects[idx].(*entities.Tank)
-		if !ok {
-			continue
-		}
-		if obj.Common.Id == id {
-			return obj, common.Found
+		if f.Objects[idx].GetCommon().Id == id {
+			return f.Objects[idx], common.Found
 		}
 	}
 	return nil, common.NotFound
+}
+
+func (f *Field) getAllCanCommon() []systems.CommonSystem {
+	var result []systems.CommonSystem
+	for idx := range f.Objects {
+		if obj, ok := f.Objects[idx].(systems.CommonSystem); ok {
+			result = append(result, obj)
+		}
+	}
+	return result
 }
 
 func (f *Field) getAllCanPosition() []systems.PositionSystem {
@@ -64,14 +70,26 @@ func (f *Field) getAllCanRecharged() []systems.CommonSystem {
 	return result
 }
 
+func (f *Field) getAllCanHealth() []systems.HealthSystem {
+	var result []systems.HealthSystem
+	for idx := range f.Objects {
+		if obj, ok := f.Objects[idx].(systems.HealthSystem); ok {
+			result = append(result, obj)
+		}
+	}
+	return result
+}
+
 func (f *Field) AddTank() (string, error) {
 	if f.NumberGamers >= f.cfg.Game.MaxGamers {
 		return "", errors.New("too much players")
 	}
+	f.NumberGamers++
+	return f.addTank()
+}
 
+func (f *Field) addTank() (string, error) {
 	tank := entities.NewTank(&f.cfg.Tank)
 	f.Objects = append(f.Objects, &tank)
-	f.NumberGamers++
-
 	return tank.Id, nil
 }

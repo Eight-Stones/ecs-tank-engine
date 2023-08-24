@@ -13,11 +13,12 @@ import (
 
 // MetaInfo метаинформация.
 type MetaInfo struct {
-	NumberGamers    int
-	MaxNumberGamers int
-	SizeX           int
-	SizeY           int
-	PreSelectPlaces [][]int
+	NumberGamers        int
+	MaxNumberGamers     int
+	SizeX               int
+	SizeY               int
+	PreSelectPlaces     [][]int
+	PreSelectDirections []uint
 }
 
 type AppInfo struct {
@@ -44,10 +45,11 @@ func New(cfg *config.Config) Field {
 			jobWG: &sync.WaitGroup{},
 		},
 		metaInfo: MetaInfo{
-			MaxNumberGamers: cfg.Game.MaxGamers,
-			SizeX:           cfg.Game.SizeX,
-			SizeY:           cfg.Game.SizeY,
-			PreSelectPlaces: cfg.Game.PreSelectPlaces,
+			MaxNumberGamers:     cfg.Game.MaxGamers,
+			SizeX:               cfg.Game.SizeX,
+			SizeY:               cfg.Game.SizeY,
+			PreSelectPlaces:     cfg.Game.PreSelectPlaces,
+			PreSelectDirections: cfg.Game.PreSelectDirection,
 		},
 		NumberGamers: 0,
 		Objects:      nil,
@@ -65,7 +67,7 @@ func (f *Field) Info() map[string]map[string]interface{} {
 		case *entities.Tank:
 			m[common.KeyObjectKind] = common.KeyObjectTank
 		case *entities.Bullet:
-			m[common.KeyObjectKind] = common.KeyObjectTank
+			m[common.KeyObjectKind] = common.KeyObjectBullet
 		}
 
 		if obj, ok := object.(systems.PositionSystem); ok {
@@ -109,6 +111,7 @@ func (f *Field) Start(ctx context.Context) {
 		if tank, ok := obj.(*entities.Tank); ok {
 			tank.Position.X = f.metaInfo.PreSelectPlaces[idx][0]
 			tank.Position.Y = f.metaInfo.PreSelectPlaces[idx][1]
+			tank.Movement.Direction = f.metaInfo.PreSelectDirections[idx]
 		}
 	}
 	f.runJobs(ctx)

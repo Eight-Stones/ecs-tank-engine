@@ -1,7 +1,5 @@
 package components
 
-import "time"
-
 type Damage struct {
 	DamagePoints int
 }
@@ -9,9 +7,9 @@ type Damage struct {
 func (d *Damage) GetDamage() *Damage { return d }
 
 type Shooting struct {
-	Ammo     int
-	MaxAmmo  int
-	Recharge time.Time
+	Ammo    int
+	MaxAmmo int
+	Recharge
 }
 
 func (s *Shooting) GetShooting() *Shooting { return s }

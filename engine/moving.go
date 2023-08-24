@@ -7,53 +7,61 @@ import (
 	"time"
 )
 
-func (f *Field) rotate(id string, direction uint) int {
-	tank, code := f.find(id)
+func (f *Field) rotate(id string, direction uint, now time.Time) int {
+	obj, code := f.find(id)
 	doing := 0b0 | code
 	if utils.CheckBitMask(code, common.NotFound) {
 		return doing | common.FailRotate
 	}
 
-	now := time.Now()
-	if !systems.CanRotate(tank, now) {
+	if !systems.CanRotate(obj, now) {
 		return doing | common.FailRotate | common.Ban
 	}
 
-	systems.RotateMoveSystem(direction, tank)
-	systems.SetRotateDone(tank, now)
+	rotatement := obj.(systems.RotatementSystem)
+	systems.RotateMoveSystem(rotatement, direction)
+	systems.SetRotateDone(rotatement, now)
 
 	return doing | common.OkRotate
 }
-
-func (f *Field) move(id string) int {
-	tank, code := f.find(id)
+func (f *Field) move(id string, now time.Time) int {
+	obj, code := f.find(id)
 	doing := 0b0 | code
 
 	if utils.CheckBitMask(doing, common.NotFound) {
 		return doing | common.FailStep
 	}
 
-	now := time.Now()
-	if !systems.CanStep(tank, now) {
+	if !systems.CanStep(obj, now) {
 		return doing | common.FailStep | common.Ban
 	}
 
-	systems.SetStepDone(tank, now)
+	movement := obj.(systems.MovementSystem)
 
-	doing = doing | f.checkBorder(tank.Direction, tank)
+	systems.SetStepDone(movement, now)
+
+	doing = doing | f.checkBorder(movement.GetMovement().Direction, movement)
+
 	if utils.CheckBitMask(doing, common.FailBorder) {
 		return doing | common.FailStep
 	}
+	switch {
+	case utils.CheckBitMask(doing, common.Disappear):
+		systems.Disappear(obj)
+		return doing | common.FailStep
+	case utils.CheckBitMask(doing, common.FailBorder):
+		return doing | common.FailStep
+	}
 
-	for _, obj := range f.getAllCanPosition() {
-		doing = doing | f.checkCollision(tank, obj)
+	for _, objPosition := range f.getAllCanPosition() {
+		doing = doing | f.checkCollision(movement, objPosition)
 	}
 
 	if utils.CheckBitMask(doing, common.OkCollision) {
 		return (doing ^ common.FailCollision) | common.FailStep
 	}
 
-	systems.StepMoveSystem(tank)
+	systems.StepMoveSystem(movement)
 
 	doing = doing | common.OkStep
 

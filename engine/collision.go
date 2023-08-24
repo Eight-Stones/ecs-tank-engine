@@ -8,9 +8,18 @@ import (
 func (f *Field) checkBorder(direction uint, in systems.PositionSystem) int {
 	incX, incY := systems.GetIncrementMoveSystem(direction)
 	object := in.GetPosition()
-	if object.X+incX < 0 || object.X+incX > f.metaInfo.SizeX || object.Y+incY < 0 || object.Y+incY > f.metaInfo.SizeY {
+
+	isBreakBorder := object.X+incX < 0 || object.X+incX > f.metaInfo.SizeX || object.Y+incY < 0 || object.Y+incY > f.metaInfo.SizeY
+	_, isCanDisappear := in.(systems.AutoMovementSystem)
+
+	switch {
+	case isBreakBorder && isCanDisappear:
+		return common.FailBorder | common.Disappear
+	case isBreakBorder:
 		return common.FailBorder
+
 	}
+
 	return common.OkBorder
 }
 

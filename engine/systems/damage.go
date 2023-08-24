@@ -7,10 +7,6 @@ type DamageSystem interface {
 	HealthSystem
 }
 
-type ShootingSystem interface {
-	GetShooting() *components.Shooting
-}
-
 func CauseHitDamageSystem(damageTaker HealthSystem, damageDealer DamageSystem) {
 	ChangeHPLevelHealthSystem(damageTaker, damageDealer.GetDamage().DamagePoints)
 }

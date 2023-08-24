@@ -6,11 +6,11 @@ type HealthSystem interface {
 	GetHealth() *components.Health
 }
 
-func IsAliveHealthSystem(in HealthSystem) int {
+func IsAliveHealthSystem(in HealthSystem) bool {
 	if in.GetHealth().HitPoints <= 0 {
-		return Fail
+		return false
 	}
-	return Success
+	return true
 }
 
 func ChangeHPLevelHealthSystem(in HealthSystem, delta int) {
@@ -23,4 +23,9 @@ func ChangeHPLevelHealthSystem(in HealthSystem, delta int) {
 	case health.HitPoints-delta <= 0:
 		health.HitPoints = 0
 	}
+}
+
+func Disappear(in CommonSystem) {
+	obj := in.(HealthSystem)
+	ChangeHPLevelHealthSystem(obj, obj.GetHealth().HitPoints)
 }

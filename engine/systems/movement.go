@@ -46,8 +46,12 @@ func CheckCollision(first MovementSystem, second PositionSystem) int {
 	return Fail
 }
 
-func CanRotate(in RotatementSystem, now time.Time) bool {
-	return in.GetRotatement().Recharge.IsRechargeDone(now)
+func CanRotate(in CommonSystem, now time.Time) bool {
+	rotatement, ok := in.(RotatementSystem)
+	if !ok {
+		return false
+	}
+	return rotatement.GetRotatement().Recharge.IsRechargeDone(now)
 }
 
 func SetRotateDone(in RotatementSystem, now time.Time) {
@@ -55,12 +59,16 @@ func SetRotateDone(in RotatementSystem, now time.Time) {
 	recharge.SetUntil(now)
 }
 
-func RotateMoveSystem(direction uint, in RotatementSystem) {
+func RotateMoveSystem(in RotatementSystem, direction uint) {
 	in.GetMovement().Direction = direction
 }
 
-func CanStep(in MovementSystem, now time.Time) bool {
-	return in.GetMovement().Recharge.IsRechargeDone(now)
+func CanStep(in CommonSystem, now time.Time) bool {
+	movement, ok := in.(MovementSystem)
+	if !ok {
+		return false
+	}
+	return movement.GetMovement().Recharge.IsRechargeDone(now)
 }
 
 func SetStepDone(in MovementSystem, now time.Time) {

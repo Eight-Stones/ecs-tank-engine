@@ -3,9 +3,7 @@ package main
 import (
 	"context"
 	"eight-stones/ecs-tank-engine/engine"
-	"eight-stones/ecs-tank-engine/engine/common"
 	"eight-stones/ecs-tank-engine/engine/config"
-	"fmt"
 	"time"
 )
 
@@ -27,18 +25,12 @@ func main() {
 	gf.Start(ctx)
 	go gf.DrawConsole(ctx)
 
-	code := gf.Move(uuid, common.Right)
-	fmt.Println(common.Translate(code))
-	time.Sleep(time.Millisecond * 500)
+	gf.Shoot(uuid)
 
-	code = gf.Move(uuid, common.Right)
-	fmt.Println(common.Translate(code))
-	time.Sleep(time.Second)
-
-	code = gf.Move(uuid, common.Right)
-	fmt.Println(common.Translate(code))
-
-	time.Sleep(time.Second)
+	for i := 0; i <= 20; i++ {
+		time.Sleep(time.Second * 1)
+		//gf.Move(uuid, common.Right)
+	}
 
 	cancel()
 

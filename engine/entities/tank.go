@@ -1,6 +1,7 @@
 package entities
 
 import (
+	"eight-stones/ecs-tank-engine/engine/common"
 	"eight-stones/ecs-tank-engine/engine/components"
 	"eight-stones/ecs-tank-engine/engine/config"
 	"github.com/google/uuid"
@@ -14,6 +15,7 @@ type Tank struct {
 	components.Rotatement
 	components.Health
 	components.Damage
+	components.Shooting
 }
 
 func NewTank(cfg *config.TankConfig) Tank {
@@ -26,6 +28,7 @@ func NewTank(cfg *config.TankConfig) Tank {
 			Y: -1,
 		},
 		Movement: components.Movement{
+			Direction: common.Right,
 			Recharge: &components.Recharge{
 				DefaultDuration: cfg.MoveRechargeDefaultDuration,
 			},
@@ -41,6 +44,13 @@ func NewTank(cfg *config.TankConfig) Tank {
 		},
 		Damage: components.Damage{
 			DamagePoints: cfg.DamagePoints,
+		},
+		Shooting: components.Shooting{
+			Ammo:    cfg.Ammo,
+			MaxAmmo: cfg.MaxAmmo,
+			Recharge: components.Recharge{
+				DefaultDuration: cfg.ShootRechargeDefaultDuration,
+			},
 		},
 	}
 }
