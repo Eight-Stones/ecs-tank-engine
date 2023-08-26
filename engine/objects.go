@@ -46,11 +46,11 @@ func (f *Field) getAllCanMovement() []systems.MovementSystem {
 	return result
 }
 
-func (f *Field) getAllCanAutoMovement() []systems.AutoMovementSystem {
-	var result []systems.AutoMovementSystem
+func (f *Field) getAllCanAutoMovement() []systems.CommonSystem {
+	var result []systems.CommonSystem
 	for idx := range f.Objects {
 		if obj, ok := f.Objects[idx].(systems.AutoMovementSystem); ok {
-			result = append(result, obj)
+			result = append(result, obj.(systems.CommonSystem))
 		}
 	}
 	return result

@@ -7,13 +7,8 @@ import (
 	"time"
 )
 
-func (f *Field) rotate(id string, direction uint, now time.Time) int {
-	obj, code := f.find(id)
-	doing := 0b0 | code
-	if utils.CheckBitMask(code, common.NotFound) {
-		return doing | common.FailRotate
-	}
-
+func (f *Field) rotate(obj systems.CommonSystem, direction uint, now time.Time) int {
+	doing := 0b0
 	if !systems.CanRotate(obj, now) {
 		return doing | common.FailRotate | common.Ban
 	}
@@ -24,14 +19,9 @@ func (f *Field) rotate(id string, direction uint, now time.Time) int {
 
 	return doing | common.OkRotate
 }
-func (f *Field) move(id string, now time.Time) int {
-	obj, code := f.find(id)
-	doing := 0b0 | code
 
-	if utils.CheckBitMask(doing, common.NotFound) {
-		return doing | common.FailStep
-	}
-
+func (f *Field) move(obj systems.CommonSystem, now time.Time) int {
+	doing := 0b0
 	if !systems.CanStep(obj, now) {
 		return doing | common.FailStep | common.Ban
 	}
@@ -41,10 +31,6 @@ func (f *Field) move(id string, now time.Time) int {
 	systems.SetStepDone(movement, now)
 
 	doing = doing | f.checkBorder(movement.GetMovement().Direction, movement)
-
-	if utils.CheckBitMask(doing, common.FailBorder) {
-		return doing | common.FailStep
-	}
 	switch {
 	case utils.CheckBitMask(doing, common.Disappear):
 		systems.Disappear(obj)

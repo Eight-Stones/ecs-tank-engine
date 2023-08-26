@@ -12,11 +12,11 @@ func main() {
 	cfg.Game.Jobs.Recharger = time.Second
 	gf := engine.New(cfg)
 
-	uuid, err := gf.AddTank()
+	uuid1, err := gf.AddTank()
 	if err != nil {
 		panic(err)
 	}
-	_, err = gf.AddTank()
+	uuid2, err := gf.AddTank()
 	if err != nil {
 		panic(err)
 	}
@@ -25,9 +25,14 @@ func main() {
 	gf.Start(ctx)
 	go gf.DrawConsole(ctx)
 
-	gf.Shoot(uuid)
+	time.Sleep(time.Second * 1)
+	gf.Shoot(uuid1)
+	gf.Shoot(uuid2)
 
-	for i := 0; i <= 20; i++ {
+	time.Sleep(time.Second * 2)
+	gf.Shoot(uuid1)
+
+	for i := 0; i <= 30; i++ {
 		time.Sleep(time.Second * 1)
 		//gf.Move(uuid, common.Right)
 	}

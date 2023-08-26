@@ -24,9 +24,7 @@ func (f *Field) shoot(id string) int {
 
 	systems.SetShotDone(shooting, now)
 
-	bulletId := f.createBullet(obj).GetCommon().Id
-
-	doing = doing | f.move(bulletId, now)
+	doing = doing | f.move(f.createBullet(obj), now)
 	if utils.CheckBitMask(doing, common.FailStep) {
 		return doing | common.FailShot
 	}

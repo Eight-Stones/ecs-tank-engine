@@ -9,7 +9,12 @@ func (f *Field) checkBorder(direction uint, in systems.PositionSystem) int {
 	incX, incY := systems.GetIncrementMoveSystem(direction)
 	object := in.GetPosition()
 
-	isBreakBorder := object.X+incX < 0 || object.X+incX > f.metaInfo.SizeX || object.Y+incY < 0 || object.Y+incY > f.metaInfo.SizeY
+	breakLeft := object.X+incX < 0
+	breakRight := object.X+incX > f.metaInfo.SizeX-1
+	breakBottom := object.Y+incY < 0
+	breakTop := object.Y+incY > f.metaInfo.SizeY-1
+
+	isBreakBorder := breakLeft || breakRight || breakBottom || breakTop
 	_, isCanDisappear := in.(systems.AutoMovementSystem)
 
 	switch {
