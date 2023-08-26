@@ -24,11 +24,11 @@ func NewBullet(cfg *config.BulletConfig, parent systems.CommonSystem, x, y int, 
 			Parent: parent.(*components.Common),
 		},
 		Position: components.Position{
-			X: x,
-			Y: y,
+			X:         x,
+			Y:         y,
+			Direction: direction,
 		},
 		Movement: components.Movement{
-			Direction: direction,
 			Recharge: &components.Recharge{
 				Until:           time.Time{},
 				DefaultDuration: cfg.MoveRechargeDefaultDuration,

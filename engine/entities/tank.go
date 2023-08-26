@@ -24,11 +24,11 @@ func NewTank(cfg *config.TankConfig) Tank {
 			Id: uuid.New().String(),
 		},
 		Position: components.Position{
-			X: -1,
-			Y: -1,
+			X:         -1,
+			Y:         -1,
+			Direction: common.Right,
 		},
 		Movement: components.Movement{
-			Direction: common.Right,
 			Recharge: &components.Recharge{
 				DefaultDuration: cfg.MoveRechargeDefaultDuration,
 			},

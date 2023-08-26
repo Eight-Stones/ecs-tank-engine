@@ -30,7 +30,7 @@ func (f *Field) move(obj systems.CommonSystem, now time.Time) int {
 
 	systems.SetStepDone(movement, now)
 
-	doing = doing | f.checkBorder(movement.GetMovement().Direction, movement)
+	doing = doing | f.checkBorder(movement.GetPosition().Direction, movement)
 	switch {
 	case utils.CheckBitMask(doing, common.Disappear):
 		systems.Disappear(obj)

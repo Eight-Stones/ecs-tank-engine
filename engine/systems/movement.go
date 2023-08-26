@@ -12,7 +12,6 @@ type MovementSystem interface {
 }
 
 type RotatementSystem interface {
-	GetMovement() *components.Movement
 	GetRotatement() *components.Rotatement
 	PositionSystem
 }
@@ -31,12 +30,12 @@ func GetIncrementMoveSystem(direction uint) (x, y int) {
 	return values[0], values[1]
 }
 
-func CheckCollision(first MovementSystem, second PositionSystem) int {
+func CheckCollision(first PositionSystem, second PositionSystem) int {
 	if first == second {
 		return Fail
 	}
 
-	incX, incY := GetIncrementMoveSystem(first.GetMovement().Direction)
+	incX, incY := GetIncrementMoveSystem(first.GetPosition().Direction)
 	pMove := first.GetPosition()
 	pCllsn := second.GetPosition()
 
@@ -60,7 +59,7 @@ func SetRotateDone(in RotatementSystem, now time.Time) {
 }
 
 func RotateMoveSystem(in RotatementSystem, direction uint) {
-	in.GetMovement().Direction = direction
+	in.GetPosition().Direction = direction
 }
 
 func CanStep(in CommonSystem, now time.Time) bool {
@@ -77,6 +76,6 @@ func SetStepDone(in MovementSystem, now time.Time) {
 }
 
 func StepMoveSystem(in MovementSystem) {
-	incX, incY := GetIncrementMoveSystem(in.GetMovement().Direction)
+	incX, incY := GetIncrementMoveSystem(in.GetPosition().Direction)
 	ChangePosition(incX, incY, in)
 }

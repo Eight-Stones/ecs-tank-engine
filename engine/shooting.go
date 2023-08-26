@@ -8,13 +8,8 @@ import (
 	"time"
 )
 
-func (f *Field) shoot(id string) int {
-	obj, code := f.find(id)
-	doing := 0b0 | code
-	if utils.CheckBitMask(code, common.NotFound) {
-		return doing | common.FailShot
-	}
-
+func (f *Field) shoot(obj systems.CommonSystem) int {
+	doing := 0b0
 	now := time.Now()
 	if !systems.CanShoot(obj, now) {
 		return doing | common.FailShot | common.Ban
@@ -33,14 +28,14 @@ func (f *Field) shoot(id string) int {
 }
 
 func (f *Field) createBullet(in systems.CommonSystem) systems.CommonSystem {
-	movement := in.(systems.RotatementSystem)
+	position := in.(systems.PositionSystem)
 	// TODO переосмыслить этот момент, кажется, что система позиционирования должна иметь направление
 	bullet := entities.NewBullet(
 		&f.cfg.Bullet,
 		in.GetCommon(),
-		movement.GetPosition().X,
-		movement.GetPosition().Y,
-		movement.GetMovement().Direction,
+		position.GetPosition().X,
+		position.GetPosition().Y,
+		position.GetPosition().Direction,
 	)
 	f.Objects = append(f.Objects, &bullet)
 	return &bullet

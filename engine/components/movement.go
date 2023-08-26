@@ -1,7 +1,6 @@
 package components
 
 type Movement struct {
-	Direction uint
 	*Recharge
 }
 

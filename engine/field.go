@@ -75,7 +75,7 @@ func (f *Field) Info() map[string]map[string]interface{} {
 		}
 
 		if obj, ok := object.(systems.MovementSystem); ok {
-			m[common.KeyMovementDirection] = obj.GetMovement().Direction
+			m[common.KeyMovementDirection] = obj.GetPosition().Direction
 		}
 
 		if obj, ok := object.(systems.HealthSystem); ok {
@@ -111,7 +111,7 @@ func (f *Field) Start(ctx context.Context) {
 		if tank, ok := obj.(*entities.Tank); ok {
 			tank.Position.X = f.metaInfo.PreSelectPlaces[idx][0]
 			tank.Position.Y = f.metaInfo.PreSelectPlaces[idx][1]
-			tank.Movement.Direction = f.metaInfo.PreSelectDirections[idx]
+			tank.Position.Direction = f.metaInfo.PreSelectDirections[idx]
 		}
 	}
 	f.runJobs(ctx)
