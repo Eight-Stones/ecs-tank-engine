@@ -4,7 +4,7 @@ import (
 	"context"
 )
 
-// runJobs запускает все побочные процессы игры.
+// runJobs start inner processes.
 func (f *Field) runJobs(ctx context.Context) {
 	go func() {
 		f.appInfo.jobWG.Add(1)

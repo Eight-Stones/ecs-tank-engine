@@ -8,6 +8,7 @@ import (
 	"time"
 )
 
+// shoot shoots from tank.
 func (f *Field) shoot(obj systems.CommonSystem) int {
 	doing := 0b0
 	now := time.Now()
@@ -27,9 +28,9 @@ func (f *Field) shoot(obj systems.CommonSystem) int {
 	return doing | common.OkShot
 }
 
+// createBullet created bullet object.
 func (f *Field) createBullet(in systems.CommonSystem) systems.CommonSystem {
 	position := in.(systems.PositionSystem)
-	// TODO переосмыслить этот момент, кажется, что система позиционирования должна иметь направление
 	bullet := entities.NewBullet(
 		&f.cfg.Bullet,
 		in.GetCommon(),

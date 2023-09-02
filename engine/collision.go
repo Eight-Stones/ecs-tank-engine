@@ -5,6 +5,7 @@ import (
 	"eight-stones/ecs-tank-engine/engine/systems"
 )
 
+// checkBorder check collision with border of map.
 func (f *Field) checkBorder(direction uint, in systems.PositionSystem) int {
 	incX, incY := systems.GetIncrementMoveSystem(direction)
 	object := in.GetPosition()
@@ -28,6 +29,7 @@ func (f *Field) checkBorder(direction uint, in systems.PositionSystem) int {
 	return common.OkBorder
 }
 
+// checkCollision check collision with other object.
 func (f *Field) checkCollision(first systems.MovementSystem, second systems.PositionSystem) int {
 	if systems.CheckCollision(first, second) == systems.Fail {
 		return common.FailCollision
@@ -45,6 +47,7 @@ func (f *Field) checkCollision(first systems.MovementSystem, second systems.Posi
 
 }
 
+// makeCollision process the collision between objects.
 func (f *Field) makeCollision(first, second systems.CommonSystem) int {
 	fInfo, sInfo := f.defineDamageType(first), f.defineDamageType(second)
 	code := common.DoNothing

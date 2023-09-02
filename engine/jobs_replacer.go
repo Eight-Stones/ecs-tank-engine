@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-// autoReplaceDeadJob автоматически переносит мертвые игровые объекты в лог объектов.
+// autoReplaceDeadJob start process of replacing dead object to other list.
 func (f *Field) autoReplaceDeadJob(ctx context.Context) {
 	defer f.appInfo.jobWG.Done()
 	ticker := time.NewTicker(f.cfg.Game.Jobs.Replacer)
@@ -20,7 +20,7 @@ func (f *Field) autoReplaceDeadJob(ctx context.Context) {
 	}
 }
 
-// autoReplaceDead переносит мертвые игровые объекты в лог объектов.
+// autoReplaceDead replace dead object to other list.
 func (f *Field) autoReplaceDead(_ context.Context) {
 	f.appInfo.mutex.Lock()
 	defer f.appInfo.mutex.Unlock()

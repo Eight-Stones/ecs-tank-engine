@@ -7,6 +7,7 @@ import (
 	"errors"
 )
 
+// find finds object by his id.
 func (f *Field) find(id string) (systems.CommonSystem, int) {
 	for idx := range f.Objects {
 		if f.Objects[idx].GetCommon().Id == id {
@@ -16,6 +17,7 @@ func (f *Field) find(id string) (systems.CommonSystem, int) {
 	return nil, common.NotFound
 }
 
+// getAllCanCommon get all common object,
 func (f *Field) getAllCanCommon() []systems.CommonSystem {
 	var result []systems.CommonSystem
 	for idx := range f.Objects {
@@ -26,6 +28,7 @@ func (f *Field) getAllCanCommon() []systems.CommonSystem {
 	return result
 }
 
+// getAllCanPosition get all position object.
 func (f *Field) getAllCanPosition() []systems.PositionSystem {
 	var result []systems.PositionSystem
 	for idx := range f.Objects {
@@ -36,16 +39,7 @@ func (f *Field) getAllCanPosition() []systems.PositionSystem {
 	return result
 }
 
-func (f *Field) getAllCanMovement() []systems.MovementSystem {
-	var result []systems.MovementSystem
-	for idx := range f.Objects {
-		if obj, ok := f.Objects[idx].(systems.MovementSystem); ok {
-			result = append(result, obj)
-		}
-	}
-	return result
-}
-
+// getAllCanAutoMovement get all automovement object.
 func (f *Field) getAllCanAutoMovement() []systems.CommonSystem {
 	var result []systems.CommonSystem
 	for idx := range f.Objects {
@@ -56,6 +50,7 @@ func (f *Field) getAllCanAutoMovement() []systems.CommonSystem {
 	return result
 }
 
+// getAllCanRecharged get all recharged object.
 func (f *Field) getAllCanRecharged() []systems.CommonSystem {
 	var result []systems.CommonSystem
 	for idx := range f.Objects {
@@ -70,16 +65,7 @@ func (f *Field) getAllCanRecharged() []systems.CommonSystem {
 	return result
 }
 
-func (f *Field) getAllCanHealth() []systems.HealthSystem {
-	var result []systems.HealthSystem
-	for idx := range f.Objects {
-		if obj, ok := f.Objects[idx].(systems.HealthSystem); ok {
-			result = append(result, obj)
-		}
-	}
-	return result
-}
-
+// AddTank added new tank to game.
 func (f *Field) AddTank() (string, error) {
 	if f.NumberGamers >= f.cfg.Game.MaxGamers {
 		return "", errors.New("too much players")
@@ -88,6 +74,7 @@ func (f *Field) AddTank() (string, error) {
 	return f.addTank()
 }
 
+// addTank added new tank to game.
 func (f *Field) addTank() (string, error) {
 	tank := entities.NewTank(&f.cfg.Tank)
 	f.Objects = append(f.Objects, &tank)

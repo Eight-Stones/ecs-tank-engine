@@ -2,7 +2,6 @@ package engine
 
 import (
 	"context"
-	"eight-stones/ecs-tank-engine/engine/common"
 	"eight-stones/ecs-tank-engine/engine/config"
 	"eight-stones/ecs-tank-engine/engine/entities"
 	"eight-stones/ecs-tank-engine/engine/pkg/helper"
@@ -11,7 +10,7 @@ import (
 	"time"
 )
 
-// MetaInfo метаинформация.
+// MetaInfo inner info.
 type MetaInfo struct {
 	NumberGamers        int
 	MaxNumberGamers     int
@@ -21,12 +20,13 @@ type MetaInfo struct {
 	PreSelectDirections []uint
 }
 
+// AppInfo inner app objects.
 type AppInfo struct {
 	mutex *sync.Mutex
 	jobWG *sync.WaitGroup
 }
 
-// Field игровое поле.
+// Field game field.
 type Field struct {
 	cfg          *config.Config
 	appInfo      AppInfo
@@ -36,7 +36,7 @@ type Field struct {
 	DeadObjects  []systems.CommonSystem
 }
 
-// New возвращает объект игрового поля.
+// New create new instance.
 func New(cfg *config.Config) Field {
 	return Field{
 		cfg: cfg,
@@ -57,42 +57,7 @@ func New(cfg *config.Config) Field {
 	}
 }
 
-// Info возвращает информацию об игровых объектах в свободной форме.
-func (f *Field) Info() map[string]map[string]interface{} {
-	result := make(map[string]map[string]interface{}, len(f.Objects))
-	for _, object := range f.Objects {
-		m := make(map[string]interface{})
-
-		switch object.(type) {
-		case *entities.Tank:
-			m[common.KeyObjectKind] = common.KeyObjectTank
-		case *entities.Bullet:
-			m[common.KeyObjectKind] = common.KeyObjectBullet
-		}
-
-		if obj, ok := object.(systems.PositionSystem); ok {
-			m[common.KeyPositionCoordinate] = []int{obj.GetPosition().X, obj.GetPosition().Y}
-		}
-
-		if obj, ok := object.(systems.MovementSystem); ok {
-			m[common.KeyMovementDirection] = obj.GetPosition().Direction
-		}
-
-		if obj, ok := object.(systems.HealthSystem); ok {
-			m[common.KeyStatHitPoints] = obj.GetHealth().HitPoints
-		}
-
-		if obj, ok := object.(systems.DamageSystem); ok {
-			m[common.KeyStatDamage] = obj.GetDamage().DamagePoints
-		}
-
-		obj := object.(systems.CommonSystem)
-
-		result[obj.GetCommon().Id] = m
-	}
-	return result
-}
-
+// DrawConsole helper method for drawing game.
 func (f *Field) DrawConsole(ctx context.Context) {
 	ticker := time.NewTicker(time.Millisecond * 100)
 	for {
@@ -100,12 +65,12 @@ func (f *Field) DrawConsole(ctx context.Context) {
 		case <-ctx.Done():
 			return
 		case <-ticker.C:
-			helper.DrawField(f.metaInfo.SizeX, f.metaInfo.SizeY, f.Info())
+			helper.DrawField(f.metaInfo.SizeX, f.metaInfo.SizeY, f.CurrentState())
 		}
 	}
 }
 
-// Start запускает процессы.
+// Start begin processes of engine.
 func (f *Field) Start(ctx context.Context) {
 	for idx, obj := range f.Objects {
 		if tank, ok := obj.(*entities.Tank); ok {

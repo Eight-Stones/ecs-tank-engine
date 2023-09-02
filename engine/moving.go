@@ -7,6 +7,7 @@ import (
 	"time"
 )
 
+// rotate rotates select object.
 func (f *Field) rotate(obj systems.CommonSystem, direction uint, now time.Time) int {
 	doing := 0b0
 	if !systems.CanRotate(obj, now) {
@@ -20,6 +21,7 @@ func (f *Field) rotate(obj systems.CommonSystem, direction uint, now time.Time) 
 	return doing | common.OkRotate
 }
 
+// move moves select object by his direction.
 func (f *Field) move(obj systems.CommonSystem, now time.Time) int {
 	doing := 0b0
 	if !systems.CanStep(obj, now) {

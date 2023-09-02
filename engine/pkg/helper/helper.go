@@ -45,6 +45,7 @@ type position struct {
 
 type info struct {
 	Id        string
+	Icon      string
 	Kind      string
 	Position  position
 	HitPoints int
@@ -96,14 +97,23 @@ func drawMap(view [][]string) {
 func prepareObjects(in map[string]map[string]interface{}) []info {
 	objects := make([]info, 0, len(in))
 	for key, value := range in {
-		coordinates := value[common.KeyPositionCoordinate].([]int)
+		icon := ""
+		switch value[common.KeyStatObjectKind].(string) {
+		case common.KeyObjectKindTank:
+			icon = "Ⓣ"
+		case common.KeyObjectKindBullet:
+			icon = "⍟"
+		}
+
+		coordinates := value[common.KeyStatPositionCoordinate].([]int)
 		object := info{
 			Id:   key,
-			Kind: value[common.KeyObjectKind].(string),
+			Icon: icon,
+			Kind: value[common.KeyStatObjectKind].(string),
 			Position: position{
 				X:         coordinates[0],
 				Y:         coordinates[1],
-				Direction: value[common.KeyMovementDirection].(uint),
+				Direction: value[common.KeyStatMovementDirection].(uint),
 			},
 			HitPoints: value[common.KeyStatHitPoints].(int),
 			Damage:    value[common.KeyStatDamage].(int),
@@ -131,7 +141,7 @@ func prepareView(x, y int, objects []info) [][]string {
 	}
 
 	for idx := range objects {
-		view[objects[idx].Position.Y][objects[idx].Position.X] = objects[idx].Kind
+		view[objects[idx].Position.Y][objects[idx].Position.X] = objects[idx].Icon
 	}
 
 	return view

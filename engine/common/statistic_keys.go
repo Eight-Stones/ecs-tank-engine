@@ -1,17 +1,15 @@
 package common
 
 const (
-	KeyObjectKind   = "kind"
-	KeyObjectTank   = "Ⓣ"
-	KeyObjectBullet = "⍟"
+	KeyObjectKindTank   = "tank"   //"Ⓣ"
+	KeyObjectKindBullet = "bullet" //"⍟"
 )
 
 const (
-	KeyPositionCoordinate = "coordinate"
-	KeyMovementDirection  = "direction"
-)
-
-const (
-	KeyStatHitPoints = "hit-points"
-	KeyStatDamage    = "damage"
+	KeyStatObjectKind         = "kind"
+	KeyStatPositionCoordinate = "coordinate"
+	KeyStatMovementDirection  = "direction"
+	KeyStatHitPoints          = "hit-points"
+	KeyStatDamage             = "damage"
+	KeyStatActions            = "actions"
 )

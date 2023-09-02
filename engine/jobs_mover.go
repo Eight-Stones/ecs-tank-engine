@@ -5,7 +5,7 @@ import (
 	"time"
 )
 
-// autoMovementJob изменяет координаты объектов, которые могут двигаться самостоятельно.
+// autoMovementJob  start process of changing placement ob object which can automove.
 func (f *Field) autoMovementJob(ctx context.Context) {
 	defer f.appInfo.jobWG.Done()
 	ticker := time.NewTicker(f.cfg.Game.Jobs.AutoMover)
@@ -19,8 +19,8 @@ func (f *Field) autoMovementJob(ctx context.Context) {
 	}
 }
 
-// autoMovementJob изменяет координаты объектов, которые могут двигаться самостоятельно.
-func (f *Field) autoMovement(ctx context.Context) {
+// autoMovementJob change placement ob object which can automove.
+func (f *Field) autoMovement(_ context.Context) {
 	f.appInfo.mutex.Lock()
 	defer f.appInfo.mutex.Unlock()
 	now := time.Now()

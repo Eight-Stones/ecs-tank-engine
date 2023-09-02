@@ -50,7 +50,7 @@ func main() {
 
 	for i := 0; i < 5; i++ {
 		time.Sleep(time.Second)
-		fmt.Println(gf.Info())
+		fmt.Println(gf.curretState())
 
 	}*/
 

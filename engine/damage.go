@@ -5,6 +5,7 @@ import (
 	"eight-stones/ecs-tank-engine/engine/systems"
 )
 
+// defineDamageType defines type of damage on object.
 func (f *Field) defineDamageType(in systems.CommonSystem) int {
 	result := common.DoNothing
 	if _, ok := in.(systems.HealthSystem); ok {
@@ -16,6 +17,7 @@ func (f *Field) defineDamageType(in systems.CommonSystem) int {
 	return result
 }
 
+// makeDamage make damage to first from second.
 func (f *Field) makeDamage(first, second systems.CommonSystem) int {
 	systems.CauseHitDamageSystem(first.(systems.HealthSystem), second.(systems.DamageSystem))
 	return common.Damaged
