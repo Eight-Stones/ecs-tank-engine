@@ -54,8 +54,8 @@ func Default() *Config {
 			PreSelectDirection: []uint{common.Right, common.Left, common.Left, common.Right},
 			Jobs: JobsConfig{
 				AutoMover: time.Second,
-				Recharger: time.Millisecond * 100,
-				Replacer:  time.Millisecond * 50,
+				Recharger: time.Millisecond * 1,
+				Replacer:  time.Millisecond * 1,
 			},
 		},
 		Tank: TankConfig{
@@ -71,7 +71,7 @@ func Default() *Config {
 		Bullet: BulletConfig{
 			HitPoints:                   1,
 			MaxHitPoints:                1,
-			MoveRechargeDefaultDuration: time.Millisecond * 500,
+			MoveRechargeDefaultDuration: time.Millisecond * 300,
 			DamagePoints:                35,
 		},
 	}

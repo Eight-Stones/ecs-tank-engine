@@ -4,10 +4,8 @@ import (
 	"context"
 	"eight-stones/ecs-tank-engine/engine/config"
 	"eight-stones/ecs-tank-engine/engine/entities"
-	"eight-stones/ecs-tank-engine/engine/pkg/helper"
 	"eight-stones/ecs-tank-engine/engine/systems"
 	"sync"
-	"time"
 )
 
 // MetaInfo inner info.
@@ -54,19 +52,6 @@ func New(cfg *config.Config) Field {
 		NumberGamers: 0,
 		Objects:      nil,
 		DeadObjects:  nil,
-	}
-}
-
-// DrawConsole helper method for drawing game.
-func (f *Field) DrawConsole(ctx context.Context) {
-	ticker := time.NewTicker(time.Millisecond * 100)
-	for {
-		select {
-		case <-ctx.Done():
-			return
-		case <-ticker.C:
-			helper.DrawField(f.metaInfo.SizeX, f.metaInfo.SizeY, f.CurrentState())
-		}
 	}
 }
 

@@ -32,7 +32,7 @@ func (f *Field) checkBorder(direction uint, in systems.PositionSystem) int {
 // checkCollision check collision with other object.
 func (f *Field) checkCollision(first systems.MovementSystem, second systems.PositionSystem) int {
 	if systems.CheckCollision(first, second) == systems.Fail {
-		return common.FailCollision
+		return common.NoCollision
 	}
 
 	if f.makeCollision(first.(systems.CommonSystem), second.(systems.CommonSystem)) == common.DoNothing {

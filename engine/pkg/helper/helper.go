@@ -8,6 +8,7 @@ import (
 	"runtime"
 	"sort"
 	"strconv"
+	"strings"
 )
 
 var clearFunc = map[string]func(){
@@ -156,4 +157,22 @@ func DrawField(x, y int, in map[string]map[string]interface{}) {
 	clear()
 	drawHeader(objects)
 	drawMap(view)
+}
+
+func DrawResult(in map[string]map[string]interface{}) {
+	clear()
+	builder := strings.Builder{}
+	for key, value := range in {
+		builder.WriteString(fmt.Sprintf("id:%v \t", key))
+		builder.WriteString(fmt.Sprintf("last position:%v \t", value[common.KeyStatPositionCoordinate].([]int)))
+		builder.WriteString(fmt.Sprintf("last HP:%v", value[common.KeyStatHitPoints].(int)))
+		builder.WriteString("actions:\n")
+		for idx, action := range value[common.KeyStatActions].([]int) {
+			builder.WriteString(fmt.Sprintf("%d:", idx))
+			common.TranslateBuilder(action, &builder)
+			builder.WriteString("\n")
+		}
+		builder.WriteString("\n")
+	}
+	fmt.Println(builder.String())
 }

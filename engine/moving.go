@@ -46,7 +46,7 @@ func (f *Field) move(obj systems.CommonSystem, now time.Time) int {
 	}
 
 	if utils.CheckBitMask(doing, common.OkCollision) {
-		return (doing ^ common.FailCollision) | common.FailStep
+		return (doing ^ common.NoCollision) | common.FailStep
 	}
 
 	systems.StepMoveSystem(movement)

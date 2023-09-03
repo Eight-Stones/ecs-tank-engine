@@ -2,6 +2,8 @@ package engine
 
 import (
 	"context"
+	"eight-stones/ecs-tank-engine/engine/common"
+	"eight-stones/ecs-tank-engine/engine/pkg/utils"
 	"time"
 )
 
@@ -26,6 +28,9 @@ func (f *Field) autoMovement(_ context.Context) {
 	now := time.Now()
 	objects := f.getAllCanAutoMovement()
 	for i := range objects {
-		f.move(objects[i], now)
+		code := f.move(objects[i], now)
+		if utils.CheckBitMask(code, common.OkCollision) || utils.CheckBitMask(code, common.NotInterruptOkCollision) {
+			f.replaceDeadById(objects[i].GetCommon().Id)
+		}
 	}
 }

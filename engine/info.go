@@ -1,10 +1,30 @@
 package engine
 
 import (
+	"context"
 	"eight-stones/ecs-tank-engine/engine/common"
 	"eight-stones/ecs-tank-engine/engine/entities"
+	"eight-stones/ecs-tank-engine/engine/pkg/helper"
 	"eight-stones/ecs-tank-engine/engine/systems"
+	"time"
 )
+
+// DrawConsole helper method for drawing game.
+func (f *Field) DrawConsole(ctx context.Context) {
+	ticker := time.NewTicker(time.Millisecond * 100)
+	for {
+		select {
+		case <-ctx.Done():
+			return
+		case <-ticker.C:
+			helper.DrawField(f.metaInfo.SizeX, f.metaInfo.SizeY, f.CurrentState())
+		}
+	}
+}
+
+func (f *Field) DrawResult() {
+	helper.DrawResult(f.Result())
+}
 
 func getState(object systems.CommonSystem) map[string]interface{} {
 	state := make(map[string]interface{})

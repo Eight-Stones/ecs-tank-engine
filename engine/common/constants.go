@@ -11,7 +11,7 @@ const (
 	OkRotate                = 0b10000000
 	FailRotate              = 0b100000000
 	OkCollision             = 0b1000000000
-	FailCollision           = 0b10000000000
+	NoCollision             = 0b10000000000
 	NotInterruptOkCollision = 0b1000000000000
 	Damaged                 = 0b10000000000000
 	BothDamaged             = 0b100000000000000

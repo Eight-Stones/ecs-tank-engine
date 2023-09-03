@@ -1,6 +1,9 @@
 package common
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 var aliases = map[int]string{
 	Fail:                    "неудача",
@@ -12,8 +15,10 @@ var aliases = map[int]string{
 	OkRotate:                "успешный поворот",
 	FailRotate:              "неудачный поворот",
 	OkCollision:             "наличие столкновление",
-	FailCollision:           "отсутстие столкновения",
+	NoCollision:             "отсутстие столкновения",
 	NotInterruptOkCollision: "наличие столкновение без прерывания",
+	OkShot:                  "выстрел успешен",
+	FailShot:                "выстрел неуспешен",
 	Damaged:                 "получение урона",
 	BothDamaged:             "совместное получение урона",
 	Found:                   "объект найден",
@@ -29,10 +34,12 @@ var order = []int{
 	OkBorder,
 	FailBorder,
 	OkCollision,
-	FailCollision,
+	NoCollision,
 	NotInterruptOkCollision,
 	OkStep,
 	FailStep,
+	OkShot,
+	FailShot,
 	Damaged,
 	BothDamaged,
 	Fail,
@@ -40,7 +47,7 @@ var order = []int{
 	Ban,
 }
 
-func Translate(actions int) string {
+func TranslatePrint(actions int) string {
 	var result string
 	for idx := range order {
 		if actions&order[idx] == order[idx] {
@@ -48,4 +55,12 @@ func Translate(actions int) string {
 		}
 	}
 	return result
+}
+
+func TranslateBuilder(actions int, builder *strings.Builder) {
+	for idx := range order {
+		if actions&order[idx] == order[idx] {
+			builder.WriteString(fmt.Sprintf("%v->", aliases[order[idx]]))
+		}
+	}
 }

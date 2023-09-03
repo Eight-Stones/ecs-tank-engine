@@ -16,7 +16,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	uuid2, err := gf.AddTank()
+	_, err = gf.AddTank()
 	if err != nil {
 		panic(err)
 	}
@@ -27,31 +27,20 @@ func main() {
 
 	time.Sleep(time.Second * 1)
 	gf.Shoot(uuid1)
-	gf.Shoot(uuid2)
 
-	time.Sleep(time.Second * 2)
+	time.Sleep(time.Second * 1)
 	gf.Shoot(uuid1)
 
-	for i := 0; i <= 30; i++ {
+	time.Sleep(time.Second * 1)
+	gf.Shoot(uuid1)
+
+	for i := 0; i <= 15; i++ {
 		time.Sleep(time.Second * 1)
-		//gf.Move(uuid, common.Right)
 	}
 
 	cancel()
 
 	time.Sleep(time.Second)
 
-	/*go func() {
-		for i := 0; i < 5; i++ {
-			time.Sleep(time.Second)
-			fmt.Println(strconv.FormatInt(int64(gf.OkStep(uuid, common.Right)), 2))
-		}
-	}()
-
-	for i := 0; i < 5; i++ {
-		time.Sleep(time.Second)
-		fmt.Println(gf.curretState())
-
-	}*/
-
+	gf.DrawResult()
 }
