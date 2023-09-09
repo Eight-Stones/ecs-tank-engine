@@ -146,9 +146,7 @@ func prepareView(x, y int, objects []info) [][]string {
 	return view
 }
 
-// DrawField отрисовывает в консоли игровые данные.
-//
-// TODO: переосмыслить вывод представления игрового поля и общий вывод в поток, а не принтами.
+// DrawField TODO: переосмыслить вывод представления игрового поля и общий вывод в поток, а не принтами.
 func DrawField(x, y int, in map[string]map[string]interface{}) {
 	objects := prepareObjects(in)
 	view := prepareView(x, y, objects)

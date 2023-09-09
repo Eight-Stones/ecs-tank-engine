@@ -6,7 +6,7 @@ import (
 )
 
 // defineDamageType defines type of damage on object.
-func (f *Field) defineDamageType(in systems.CommonSystem) int {
+func (f *Field) defineDamageType(in systems.InfoSystem) int {
 	result := common.DoNothing
 	if _, ok := in.(systems.HealthSystem); ok {
 		result = result | common.CanOnlyDamaged
@@ -18,7 +18,7 @@ func (f *Field) defineDamageType(in systems.CommonSystem) int {
 }
 
 // makeDamage make damage to first from second.
-func (f *Field) makeDamage(first, second systems.CommonSystem) int {
+func (f *Field) makeDamage(first, second systems.InfoSystem) int {
 	systems.CauseHitDamageSystem(first.(systems.HealthSystem), second.(systems.DamageSystem))
 	return common.Damaged
 }

@@ -1,7 +1,6 @@
 ## Game tanks engine
 ### Game interface
 #### Rotate
-##### Aim
 Turns object in select direction.
 ##### Params
 - id (string): identificator of objects.
@@ -13,7 +12,6 @@ Turns object in select direction.
 ##### Return
 - Bit mask of actions.
 #### Move
-##### Aim
 Turn and moves an object in its direction.
 ##### Params
 - id (string): identificator of objects.
@@ -25,14 +23,12 @@ Turn and moves an object in its direction.
 ##### Return
 - Bit mask of actions.
 #### Shoot
-##### Aim
 Shoots in object direction.
 ##### Params
 - id (string): identificator of objects.
 ##### Return
 - Bit mask of actions.
 #### Vision
-##### Aim
 Return small area around object.
 ##### Params
 - id (string): identificator of objects.
@@ -40,14 +36,15 @@ Return small area around object.
 - Bit mask of actions.
 - List with data (tank/bullets/walls/etc), area around object.
 #### Radar
-##### Aim
-Return big area around object, has long recharge.
+Return big area around object, has recharge.
 ##### Params
 - id (string): identificator of objects.
 ##### Return
 - Bit mask of actions.
 - List with data (tank/bullets/walls/etc), area around object.
 ### Game Config
+#### Configuration
+#### AddTank
 ### Info statistic interface
 Engine return statistic in map of maps of interfaces
 #### List of actions 

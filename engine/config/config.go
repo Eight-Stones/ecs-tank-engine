@@ -5,18 +5,21 @@ import (
 	"time"
 )
 
+// Config main config.
 type Config struct {
 	Game   GameConfig
 	Tank   TankConfig
 	Bullet BulletConfig
 }
 
+// JobsConfig describes jobs parameters.
 type JobsConfig struct {
 	AutoMover time.Duration
 	Recharger time.Duration
 	Replacer  time.Duration
 }
 
+// GameConfig game parameters.
 type GameConfig struct {
 	MaxGamers          int
 	SizeX              int
@@ -26,6 +29,7 @@ type GameConfig struct {
 	Jobs               JobsConfig
 }
 
+// TankConfig tank-entity params.
 type TankConfig struct {
 	HitPoints                     int
 	MaxHitPoints                  int
@@ -37,6 +41,7 @@ type TankConfig struct {
 	MaxAmmo                       int
 }
 
+// BulletConfig bullet-entity params.
 type BulletConfig struct {
 	HitPoints                   int
 	MaxHitPoints                int
@@ -44,6 +49,7 @@ type BulletConfig struct {
 	DamagePoints                int
 }
 
+// Default return default value of config.
 func Default() *Config {
 	return &Config{
 		Game: GameConfig{

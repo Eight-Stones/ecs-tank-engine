@@ -2,13 +2,15 @@ package systems
 
 import "eight-stones/ecs-tank-engine/engine/components"
 
+// StatisticSystem decribes statistic system.
 type StatisticSystem interface {
 	GetStatistic() *components.Statistic
 }
 
-func AddActionStatisticSystem(code int, in CommonSystem) {
-	if in.GetCommon().Parent != nil {
-		AddActionStatisticSystem(code, in.GetCommon().Parent)
+// AddAction added action code in list of actions.
+func AddAction(code int, in InfoSystem) {
+	if in.GetInfo().Parent != nil {
+		AddAction(code, in.GetInfo().Parent)
 		return
 	}
 	statistic, ok := in.(StatisticSystem)

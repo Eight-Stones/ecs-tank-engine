@@ -17,7 +17,7 @@ func (f *Field) Rotate(id string, direction uint) int {
 	}
 
 	code = code | f.rotate(obj, direction, time.Now())
-	systems.AddActionStatisticSystem(code, obj)
+	systems.AddAction(code, obj)
 
 	return code
 }
@@ -38,7 +38,8 @@ func (f *Field) Move(id string, direction uint) int {
 	}
 
 	code = code | f.move(obj, now)
-	systems.AddActionStatisticSystem(code, obj)
+
+	systems.AddAction(code, obj)
 
 	return code
 }
@@ -53,7 +54,7 @@ func (f *Field) Shoot(id string) int {
 	}
 
 	code = code | f.shoot(obj)
-	systems.AddActionStatisticSystem(code, obj)
+	systems.AddAction(code, obj)
 
 	return code
 }
@@ -67,7 +68,7 @@ func (f *Field) Vision(id string) (int, [][]string) {
 		return code, nil
 	}
 
-	systems.AddActionStatisticSystem(code, nil)
+	systems.AddAction(code, nil)
 
 	return code, nil
 }
@@ -85,7 +86,7 @@ func (f *Field) Radar(id string) (int, [][]string) {
 		return code, nil
 	}
 
-	systems.AddActionStatisticSystem(code, nil)
+	systems.AddAction(code, nil)
 
 	return code, nil
 }

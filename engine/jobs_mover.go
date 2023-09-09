@@ -30,7 +30,7 @@ func (f *Field) autoMovement(_ context.Context) {
 	for i := range objects {
 		code := f.move(objects[i], now)
 		if utils.CheckBitMask(code, common.OkCollision) || utils.CheckBitMask(code, common.NotInterruptOkCollision) {
-			f.replaceDeadById(objects[i].GetCommon().Id)
+			f.replaceDeadById(objects[i].GetInfo().Id)
 		}
 	}
 }

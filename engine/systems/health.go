@@ -2,10 +2,12 @@ package systems
 
 import "eight-stones/ecs-tank-engine/engine/components"
 
+// HealthSystem describes Health system.
 type HealthSystem interface {
 	GetHealth() *components.Health
 }
 
+// IsAliveHealthSystem checks whether health is sufficient to continue living.
 func IsAliveHealthSystem(in HealthSystem) bool {
 	if in.GetHealth().HitPoints <= 0 {
 		return false
@@ -13,6 +15,7 @@ func IsAliveHealthSystem(in HealthSystem) bool {
 	return true
 }
 
+// ChangeHPLevelHealthSystem changes the health level to the delta indicator.
 func ChangeHPLevelHealthSystem(in HealthSystem, delta int) {
 	health := in.GetHealth()
 	switch {
@@ -25,7 +28,8 @@ func ChangeHPLevelHealthSystem(in HealthSystem, delta int) {
 	}
 }
 
-func Disappear(in CommonSystem) {
+// Disappear resets the number of lives to zero.
+func Disappear(in InfoSystem) {
 	obj := in.(HealthSystem)
 	ChangeHPLevelHealthSystem(obj, obj.GetHealth().HitPoints)
 }

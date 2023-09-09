@@ -2,21 +2,21 @@ package components
 
 import "time"
 
-// Recharge компонент, добавляющий возможность действиям перезаряжаться и выполняться определенное количество раз.
+// Recharge adds the ability for actions to recharge and be performed a certain number of times.
 type Recharge struct {
 	Until           time.Time
 	DefaultDuration time.Duration
 }
 
-// GetRecharge интерфейс-маркер компонента.
+// GetRecharge returns Recharge component.
 func (r *Recharge) GetRecharge() *Recharge { return r }
 
-// IsRechargeDone проверяет, что действие перезарядилось.
+// IsRechargeDone checks that rechagring is done.
 func (r *Recharge) IsRechargeDone(now time.Time) bool {
 	return r.Until.Before(now)
 }
 
-// SetUntil устанавливает время перезарядки time.Now() + DefaultDuration.
+// SetUntil set end recharging time.
 func (r *Recharge) SetUntil(now time.Time) {
 	r.Until = now.Add(r.DefaultDuration)
 }

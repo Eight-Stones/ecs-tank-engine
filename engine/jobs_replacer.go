@@ -29,7 +29,7 @@ func (f *Field) autoReplaceDead(_ context.Context) {
 
 // autoReplaceDead replace dead object to other list.
 func (f *Field) autoReplace() {
-	alive := make([]systems.CommonSystem, 0, len(f.Objects))
+	alive := make([]systems.InfoSystem, 0, len(f.Objects))
 	for idx := range f.Objects {
 		healthObject, ok := f.Objects[idx].(systems.HealthSystem)
 		if !ok {
@@ -47,10 +47,11 @@ func (f *Field) autoReplace() {
 	f.Objects = alive
 }
 
+// replaceDeadById replace entity from alive to dead by id.
 func (f *Field) replaceDeadById(id string) {
 	var selectIDx int
 	for idx := range f.Objects {
-		if f.Objects[idx].GetCommon().Id == id {
+		if f.Objects[idx].GetInfo().Id == id {
 			selectIDx = idx
 			break
 		}

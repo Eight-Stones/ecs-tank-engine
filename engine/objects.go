@@ -8,9 +8,9 @@ import (
 )
 
 // find finds object by his id.
-func (f *Field) find(id string) (systems.CommonSystem, int) {
+func (f *Field) find(id string) (systems.InfoSystem, int) {
 	for idx := range f.Objects {
-		if f.Objects[idx].GetCommon().Id == id {
+		if f.Objects[idx].GetInfo().Id == id {
 			return f.Objects[idx], common.Found
 		}
 	}
@@ -18,10 +18,10 @@ func (f *Field) find(id string) (systems.CommonSystem, int) {
 }
 
 // getAllCanCommon get all common object,
-func (f *Field) getAllCanCommon() []systems.CommonSystem {
-	var result []systems.CommonSystem
+func (f *Field) getAllCanCommon() []systems.InfoSystem {
+	var result []systems.InfoSystem
 	for idx := range f.Objects {
-		if obj, ok := f.Objects[idx].(systems.CommonSystem); ok {
+		if obj, ok := f.Objects[idx].(systems.InfoSystem); ok {
 			result = append(result, obj)
 		}
 	}
@@ -40,19 +40,19 @@ func (f *Field) getAllCanPosition() []systems.PositionSystem {
 }
 
 // getAllCanAutoMovement get all automovement object.
-func (f *Field) getAllCanAutoMovement() []systems.CommonSystem {
-	var result []systems.CommonSystem
+func (f *Field) getAllCanAutoMovement() []systems.InfoSystem {
+	var result []systems.InfoSystem
 	for idx := range f.Objects {
 		if obj, ok := f.Objects[idx].(systems.AutoMovementSystem); ok {
-			result = append(result, obj.(systems.CommonSystem))
+			result = append(result, obj.(systems.InfoSystem))
 		}
 	}
 	return result
 }
 
 // getAllCanRecharged get all recharged object.
-func (f *Field) getAllCanRecharged() []systems.CommonSystem {
-	var result []systems.CommonSystem
+func (f *Field) getAllCanRecharged() []systems.InfoSystem {
+	var result []systems.InfoSystem
 	for idx := range f.Objects {
 		if _, ok := f.Objects[idx].(systems.AutoMovementSystem); ok {
 			result = append(result, f.Objects[idx])

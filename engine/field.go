@@ -30,8 +30,8 @@ type Field struct {
 	appInfo      AppInfo
 	metaInfo     MetaInfo
 	NumberGamers int
-	Objects      []systems.CommonSystem
-	DeadObjects  []systems.CommonSystem
+	Objects      []systems.InfoSystem
+	DeadObjects  []systems.InfoSystem
 }
 
 // New create new instance.

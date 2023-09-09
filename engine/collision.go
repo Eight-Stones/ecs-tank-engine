@@ -7,7 +7,7 @@ import (
 
 // checkBorder check collision with border of map.
 func (f *Field) checkBorder(direction uint, in systems.PositionSystem) int {
-	incX, incY := systems.GetIncrementMoveSystem(direction)
+	incX, incY := systems.GetIncrementPosition(direction)
 	object := in.GetPosition()
 
 	breakLeft := object.X+incX < 0
@@ -35,7 +35,7 @@ func (f *Field) checkCollision(first systems.MovementSystem, second systems.Posi
 		return common.NoCollision
 	}
 
-	if f.makeCollision(first.(systems.CommonSystem), second.(systems.CommonSystem)) == common.DoNothing {
+	if f.makeCollision(first.(systems.InfoSystem), second.(systems.InfoSystem)) == common.DoNothing {
 		return common.OkCollision
 	}
 
@@ -48,7 +48,7 @@ func (f *Field) checkCollision(first systems.MovementSystem, second systems.Posi
 }
 
 // makeCollision process the collision between objects.
-func (f *Field) makeCollision(first, second systems.CommonSystem) int {
+func (f *Field) makeCollision(first, second systems.InfoSystem) int {
 	fInfo, sInfo := f.defineDamageType(first), f.defineDamageType(second)
 	code := common.DoNothing
 	if fInfo == common.DoNothing || sInfo == common.DoNothing {

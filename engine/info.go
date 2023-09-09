@@ -1,32 +1,13 @@
 package engine
 
 import (
-	"context"
 	"eight-stones/ecs-tank-engine/engine/common"
 	"eight-stones/ecs-tank-engine/engine/entities"
-	"eight-stones/ecs-tank-engine/engine/pkg/helper"
 	"eight-stones/ecs-tank-engine/engine/systems"
-	"time"
 )
 
-// DrawConsole helper method for drawing game.
-func (f *Field) DrawConsole(ctx context.Context) {
-	ticker := time.NewTicker(time.Millisecond * 100)
-	for {
-		select {
-		case <-ctx.Done():
-			return
-		case <-ticker.C:
-			helper.DrawField(f.metaInfo.SizeX, f.metaInfo.SizeY, f.CurrentState())
-		}
-	}
-}
-
-func (f *Field) DrawResult() {
-	helper.DrawResult(f.ResultState())
-}
-
-func getState(object systems.CommonSystem) map[string]interface{} {
+// getState collect and return full info about entity.
+func getState(object systems.InfoSystem) map[string]interface{} {
 	state := make(map[string]interface{})
 
 	switch object.(type) {
@@ -56,8 +37,8 @@ func (f *Field) CurrentState() map[string]map[string]interface{} {
 	result := make(map[string]map[string]interface{}, len(f.Objects))
 	for _, object := range f.Objects {
 		state := getState(object)
-		obj := object.(systems.CommonSystem)
-		result[obj.GetCommon().Id] = state
+		obj := object.(systems.InfoSystem)
+		result[obj.GetInfo().Id] = state
 	}
 	return result
 }
@@ -72,7 +53,7 @@ func (f *Field) ResultState() map[string]map[string]interface{} {
 		}
 		state := getState(tank)
 		state[common.KeyStatActions] = tank.GetStatistic().Actions
-		result[tank.GetCommon().Id] = state
+		result[tank.GetInfo().Id] = state
 	}
 
 	return result

@@ -8,20 +8,23 @@ import (
 	"time"
 )
 
+// Bullet tank shell.
 type Bullet struct {
-	components.Common
+	components.Info
 	components.Position
 	components.Movement
 	components.AutoMovement
+	components.NotInterruptMovement
 	components.Health
 	components.Damage
 }
 
-func NewBullet(cfg *config.BulletConfig, parent systems.CommonSystem, x, y int, direction uint) Bullet {
+// NewBullet return new instance of entity.
+func NewBullet(cfg *config.BulletConfig, parent systems.InfoSystem, x, y int, direction uint) Bullet {
 	return Bullet{
-		Common: components.Common{
+		Info: components.Info{
 			Id:     uuid.New().String(),
-			Parent: parent.(*components.Common),
+			Parent: parent.(*components.Info),
 		},
 		Position: components.Position{
 			X:         x,

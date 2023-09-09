@@ -7,8 +7,9 @@ import (
 	"github.com/google/uuid"
 )
 
+// Tank war machine.
 type Tank struct {
-	components.Common
+	components.Info
 	components.Statistic
 	components.Position
 	components.Movement
@@ -18,9 +19,10 @@ type Tank struct {
 	components.Shooting
 }
 
+// NewTank return new instance of entity.
 func NewTank(cfg *config.TankConfig) Tank {
 	return Tank{
-		Common: components.Common{
+		Info: components.Info{
 			Id: uuid.New().String(),
 		},
 		Position: components.Position{

@@ -8,21 +8,21 @@ import (
 )
 
 // rotate rotates select object.
-func (f *Field) rotate(obj systems.CommonSystem, direction uint, now time.Time) int {
+func (f *Field) rotate(obj systems.InfoSystem, direction uint, now time.Time) int {
 	doing := 0b0
 	if !systems.CanRotate(obj, now) {
 		return doing | common.FailRotate | common.Ban
 	}
 
 	rotatement := obj.(systems.RotatementSystem)
-	systems.RotateMoveSystem(rotatement, direction)
+	systems.DoRotate(rotatement, direction)
 	systems.SetRotateDone(rotatement, now)
 
 	return doing | common.OkRotate
 }
 
 // move moves select object by his direction.
-func (f *Field) move(obj systems.CommonSystem, now time.Time) int {
+func (f *Field) move(obj systems.InfoSystem, now time.Time) int {
 	doing := 0b0
 	if !systems.CanStep(obj, now) {
 		return doing | common.FailStep | common.Ban
@@ -49,7 +49,7 @@ func (f *Field) move(obj systems.CommonSystem, now time.Time) int {
 		return (doing ^ common.NoCollision) | common.FailStep
 	}
 
-	systems.StepMoveSystem(movement)
+	systems.DoStep(movement)
 
 	doing = doing | common.OkStep
 

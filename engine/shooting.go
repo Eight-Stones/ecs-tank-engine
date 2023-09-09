@@ -9,7 +9,7 @@ import (
 )
 
 // shoot shoots from tank.
-func (f *Field) shoot(obj systems.CommonSystem) int {
+func (f *Field) shoot(obj systems.InfoSystem) int {
 	doing := 0b0
 	now := time.Now()
 	if !systems.CanShoot(obj, now) {
@@ -29,11 +29,11 @@ func (f *Field) shoot(obj systems.CommonSystem) int {
 }
 
 // createBullet created bullet object.
-func (f *Field) createBullet(in systems.CommonSystem) systems.CommonSystem {
+func (f *Field) createBullet(in systems.InfoSystem) systems.InfoSystem {
 	position := in.(systems.PositionSystem)
 	bullet := entities.NewBullet(
 		&f.cfg.Bullet,
-		in.GetCommon(),
+		in.GetInfo(),
 		position.GetPosition().X,
 		position.GetPosition().Y,
 		position.GetPosition().Direction,

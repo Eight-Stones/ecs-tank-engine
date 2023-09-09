@@ -47,16 +47,7 @@ var order = []int{
 	Ban,
 }
 
-func TranslatePrint(actions int) string {
-	var result string
-	for idx := range order {
-		if actions&order[idx] == order[idx] {
-			result += fmt.Sprintf("%v->", aliases[order[idx]])
-		}
-	}
-	return result
-}
-
+// TranslateBuilder adds translated string to string builder.
 func TranslateBuilder(actions int, builder *strings.Builder) {
 	for idx := range order {
 		if actions&order[idx] == order[idx] {
