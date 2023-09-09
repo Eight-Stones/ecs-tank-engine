@@ -23,7 +23,7 @@ func (f *Field) DrawConsole(ctx context.Context) {
 }
 
 func (f *Field) DrawResult() {
-	helper.DrawResult(f.Result())
+	helper.DrawResult(f.ResultState())
 }
 
 func getState(object systems.CommonSystem) map[string]interface{} {
@@ -48,14 +48,10 @@ func getState(object systems.CommonSystem) map[string]interface{} {
 		state[common.KeyStatHitPoints] = obj.GetHealth().HitPoints
 	}
 
-	if obj, ok := object.(systems.DamageSystem); ok {
-		state[common.KeyStatDamage] = obj.GetDamage().DamagePoints
-	}
-
 	return state
 }
 
-// CurrentState return game current state.
+// CurrentState returns game current state.
 func (f *Field) CurrentState() map[string]map[string]interface{} {
 	result := make(map[string]map[string]interface{}, len(f.Objects))
 	for _, object := range f.Objects {
@@ -66,7 +62,8 @@ func (f *Field) CurrentState() map[string]map[string]interface{} {
 	return result
 }
 
-func (f *Field) Result() map[string]map[string]interface{} {
+// ResultState returns game result state.
+func (f *Field) ResultState() map[string]map[string]interface{} {
 	result := make(map[string]map[string]interface{}, len(f.Objects))
 	for _, object := range append(f.Objects, f.DeadObjects...) {
 		tank, ok := object.(*entities.Tank)

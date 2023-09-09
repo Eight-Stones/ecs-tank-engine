@@ -10,6 +10,5 @@ const (
 	KeyStatPositionCoordinate = "coordinate"
 	KeyStatMovementDirection  = "direction"
 	KeyStatHitPoints          = "hit-points"
-	KeyStatDamage             = "damage"
 	KeyStatActions            = "actions"
 )

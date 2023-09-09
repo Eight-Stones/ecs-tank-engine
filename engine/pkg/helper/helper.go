@@ -50,7 +50,6 @@ type info struct {
 	Kind      string
 	Position  position
 	HitPoints int
-	Damage    int
 }
 
 func (i info) String() string {
@@ -117,7 +116,6 @@ func prepareObjects(in map[string]map[string]interface{}) []info {
 				Direction: value[common.KeyStatMovementDirection].(uint),
 			},
 			HitPoints: value[common.KeyStatHitPoints].(int),
-			Damage:    value[common.KeyStatDamage].(int),
 		}
 		objects = append(objects, object)
 	}
