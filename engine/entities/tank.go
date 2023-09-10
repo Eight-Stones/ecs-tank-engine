@@ -12,6 +12,8 @@ type Tank struct {
 	components.Info
 	components.Statistic
 	components.Position
+	components.Vision
+	components.Radar
 	components.Movement
 	components.Rotatement
 	components.Health
@@ -29,6 +31,18 @@ func NewTank(cfg *config.TankConfig) Tank {
 			X:         -1,
 			Y:         -1,
 			Direction: common.Right,
+		},
+		Vision: components.Vision{
+			Radius: cfg.Vision,
+			Recharge: components.Recharge{
+				DefaultDuration: cfg.VisionRechargeDefaultDuration,
+			},
+		},
+		Radar: components.Radar{
+			Radius: cfg.Radar,
+			Recharge: components.Recharge{
+				DefaultDuration: cfg.RadarRechargeDefaultDuration,
+			},
 		},
 		Movement: components.Movement{
 			Recharge: &components.Recharge{

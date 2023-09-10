@@ -39,6 +39,10 @@ type TankConfig struct {
 	DamagePoints                  int
 	Ammo                          int
 	MaxAmmo                       int
+	Vision                        int
+	VisionRechargeDefaultDuration time.Duration
+	Radar                         int
+	RadarRechargeDefaultDuration  time.Duration
 }
 
 // BulletConfig bullet-entity params.
@@ -73,6 +77,10 @@ func Default() *Config {
 			DamagePoints:                  20,
 			Ammo:                          20,
 			MaxAmmo:                       30,
+			Vision:                        3,
+			VisionRechargeDefaultDuration: time.Millisecond * 500,
+			Radar:                         6,
+			RadarRechargeDefaultDuration:  time.Second * 2,
 		},
 		Bullet: BulletConfig{
 			HitPoints:                   1,

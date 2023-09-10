@@ -6,16 +6,22 @@ import (
 	"eight-stones/ecs-tank-engine/engine/systems"
 )
 
+// DefineType defines type of entity.
+func DefineType(object systems.InfoSystem) string {
+	switch object.(type) {
+	case *entities.Tank:
+		return common.KeyObjectKindTank
+	case *entities.Bullet:
+		return common.KeyObjectKindBullet
+	}
+	return ""
+}
+
 // getState collect and return full info about entity.
 func getState(object systems.InfoSystem) map[string]interface{} {
 	state := make(map[string]interface{})
 
-	switch object.(type) {
-	case *entities.Tank:
-		state[common.KeyStatObjectKind] = common.KeyObjectKindTank
-	case *entities.Bullet:
-		state[common.KeyStatObjectKind] = common.KeyObjectKindBullet
-	}
+	state[common.KeyStatObjectKind] = DefineType(object)
 
 	if obj, ok := object.(systems.PositionSystem); ok {
 		state[common.KeyStatPositionCoordinate] = []int{obj.GetPosition().X, obj.GetPosition().Y}

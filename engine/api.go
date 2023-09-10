@@ -60,33 +60,35 @@ func (f *Field) Shoot(id string) int {
 }
 
 // Vision return small area around entities.Tank.
-func (f *Field) Vision(id string) (int, [][]string) {
+func (f *Field) Vision(id string) (int, View) {
 	f.appInfo.mutex.Lock()
 	defer f.appInfo.mutex.Unlock()
-	_, code := f.find(id)
+	obj, code := f.find(id)
 	if utils.CheckBitMask(code, common.NotFound) {
 		return code, nil
 	}
 
-	systems.AddAction(code, nil)
+	codeView, view := f.vision(obj)
+	code = code | codeView
 
-	return code, nil
-}
+	systems.AddAction(code, obj)
 
-func (f *Field) vision() {
-
+	return code, view
 }
 
 // Radar return big area around entities.Tank, but has recharge.
-func (f *Field) Radar(id string) (int, [][]string) {
+func (f *Field) Radar(id string) (int, View) {
 	f.appInfo.mutex.Lock()
 	defer f.appInfo.mutex.Unlock()
-	_, code := f.find(id)
+	obj, code := f.find(id)
 	if utils.CheckBitMask(code, common.NotFound) {
 		return code, nil
 	}
 
-	systems.AddAction(code, nil)
+	codeView, view := f.radar(obj)
+	code = code | codeView
 
-	return code, nil
+	systems.AddAction(code, obj)
+
+	return code, view
 }
