@@ -21,6 +21,7 @@ func (f *Field) rotate(obj systems.InfoSystem, direction components.Direction, n
 
 	f.cache.saveRotatement(
 		obj.GetInfo().Id,
+		obj.GetInfo().Type,
 		rotatement.GetPosition().Direction,
 		direction,
 	)
@@ -64,6 +65,7 @@ func (f *Field) move(obj systems.InfoSystem, now time.Time) int {
 
 	f.cache.saveStep(
 		obj.GetInfo().Id,
+		obj.GetInfo().Type,
 		oldP,
 		newP,
 	)

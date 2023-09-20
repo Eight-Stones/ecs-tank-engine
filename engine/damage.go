@@ -26,6 +26,7 @@ func (f *Field) makeDamage(first, second systems.InfoSystem) int {
 	newHitPoints := fhs.GetHealth().HitPoints
 	f.cache.saveCollision(
 		first.GetInfo().Id,
+		first.GetInfo().Type,
 		oldHitPoints,
 		newHitPoints,
 	)

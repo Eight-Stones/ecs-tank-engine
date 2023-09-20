@@ -14,6 +14,7 @@ func (f *Field) Start(ctx context.Context) {
 			tank.Position.Direction = f.gameInfo.PreSelectDirections[idx]
 			f.cache.saveCreate(
 				tank.Id,
+				tank.Info.Type,
 				tank.Position.Direction,
 				[]int{tank.Position.X, tank.Position.Y},
 				tank.Health.HitPoints,

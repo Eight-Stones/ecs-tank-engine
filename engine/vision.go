@@ -6,12 +6,14 @@ import (
 	"time"
 )
 
+// Cell ...
 type Cell struct {
 	X          int
 	Y          int
 	ObjectType string
 }
 
+// View ...
 type View [][]Cell
 
 // prepareView prepared empty view.
@@ -56,6 +58,7 @@ func trimVision(object systems.PositionSystem, radius int, view View, mX, mY int
 	return newView
 }
 
+// collectVisionData ...
 func (f *Field) collectVisionData(obj systems.VisionSystem) View {
 	position := obj.(systems.PositionSystem)
 	view := prepareView(f.gameInfo.SizeX, f.gameInfo.SizeY)
@@ -83,6 +86,8 @@ func (f *Field) vision(obj systems.InfoSystem) (int, View) {
 	systems.SetVisionDone(vision, now)
 
 	view := f.collectVisionData(vision)
+
+	f.cache.saveVision(obj.GetInfo().Id, obj.GetInfo().Type, vision.GetVision().Radius)
 
 	return doing | common.OkVision, view
 }

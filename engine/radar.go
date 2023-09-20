@@ -34,5 +34,7 @@ func (f *Field) radar(obj systems.InfoSystem) (int, View) {
 
 	view := f.collectRadarData(radar)
 
+	f.cache.saveRadar(obj.GetInfo().Id, obj.GetInfo().Type, radar.GetRadar().Radius)
+
 	return doing | common.OkRadar, view
 }

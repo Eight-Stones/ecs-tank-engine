@@ -22,6 +22,7 @@ func (f *Field) shoot(obj systems.InfoSystem) int {
 
 	f.cache.saveShoot(
 		obj.GetInfo().Id,
+		obj.GetInfo().Type,
 		shooting.GetShooting().Ammo,
 		obj.(systems.PositionSystem).GetPosition().Direction,
 	)
@@ -35,6 +36,7 @@ func (f *Field) shoot(obj systems.InfoSystem) int {
 
 	f.cache.saveCreate(
 		bullet.GetInfo().Id,
+		bullet.GetInfo().Type,
 		bullet.(systems.PositionSystem).GetPosition().Direction,
 		[]int{bullet.(systems.PositionSystem).GetPosition().X, bullet.(systems.PositionSystem).GetPosition().Y},
 		bullet.(systems.HealthSystem).GetHealth().HitPoints,

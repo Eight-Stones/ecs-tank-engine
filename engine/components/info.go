@@ -2,6 +2,16 @@ package components
 
 type ObjectType uint
 
+func (ot ObjectType) String() string {
+	switch ot {
+	case TypeTank:
+		return "Tank"
+	case TypeBullet:
+		return "bullet"
+	}
+	return ""
+}
+
 const (
 	TypeTank ObjectType = iota
 	TypeBullet

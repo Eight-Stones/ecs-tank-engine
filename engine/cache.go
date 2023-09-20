@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"eight-stones/ecs-tank-engine/engine/components"
 	"sync"
 )
 
@@ -20,6 +21,10 @@ func (at ActionType) String() string {
 		return "shoot"
 	case ActionHealth:
 		return "health"
+	case ActionVision:
+		return "vision"
+	case ActionRadar:
+		return "radar"
 	}
 	return ""
 }
@@ -31,12 +36,16 @@ const (
 	ActionMove
 	ActionShoot
 	ActionHealth
+	ActionVision
+	ActionRadar
 )
 
+// Info main log about actions.
 type Info struct {
-	Id       string
-	Type     ActionType
-	MetaInfo interface{}
+	Id         string
+	Type       ActionType
+	ObjectType components.ObjectType
+	MetaInfo   interface{}
 }
 
 // cache stores all detail actions.

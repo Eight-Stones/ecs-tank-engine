@@ -43,7 +43,7 @@ func (f *Field) autoReplace() {
 		}
 
 		f.DeadObjects = append(f.DeadObjects, f.Objects[idx])
-		f.cache.saveRemove(f.Objects[idx].GetInfo().Id)
+		f.cache.saveRemove(f.Objects[idx].GetInfo().Id, f.Objects[idx].GetInfo().Type)
 	}
 	f.Objects = alive
 }
@@ -72,6 +72,6 @@ func (f *Field) replaceDeadById(id string) {
 	}
 
 	f.DeadObjects = append(f.DeadObjects, f.Objects[selectIDx])
-	f.cache.saveRemove(f.Objects[selectIDx].GetInfo().Id)
+	f.cache.saveRemove(f.Objects[selectIDx].GetInfo().Id, f.Objects[selectIDx].GetInfo().Type)
 	f.Objects = append(f.Objects[:selectIDx], f.Objects[selectIDx+1:]...)
 }
