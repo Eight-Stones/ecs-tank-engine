@@ -14,7 +14,7 @@ func (f *Field) DrawConsole(ctx context.Context) {
 		case <-ctx.Done():
 			return
 		case <-ticker.C:
-			helper.DrawField(f.metaInfo.SizeX, f.metaInfo.SizeY, f.CurrentState())
+			helper.DrawField(f.gameInfo.SizeX, f.gameInfo.SizeY, f.CurrentState())
 		}
 	}
 }

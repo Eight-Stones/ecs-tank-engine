@@ -23,15 +23,7 @@ const (
 	OkRadar                 = 0b1000000000000000000000
 	FailRadar               = 0b10000000000000000000000
 	Found                   = 0b100000000000000000000000
-	NotFound                = 0b100000000000000000000000
-)
-
-const (
-	Undefined = iota
-	Left
-	Right
-	Up
-	Down
+	NotFound                = 0b1000000000000000000000000
 )
 
 const (
@@ -41,7 +33,7 @@ const (
 	CanDamagedAndDamage = 0b11
 )
 
-var MovementValue = map[uint][]int{
+var MovementValue = map[Direction][]int{
 	Left:  {-1, 0},
 	Right: {1, 0},
 	Down:  {0, -1},

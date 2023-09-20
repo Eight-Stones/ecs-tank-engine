@@ -58,16 +58,16 @@ func trimVision(object systems.PositionSystem, radius int, view View, mX, mY int
 
 func (f *Field) collectVisionData(obj systems.VisionSystem) View {
 	position := obj.(systems.PositionSystem)
-	view := prepareView(f.metaInfo.SizeX, f.metaInfo.SizeY)
+	view := prepareView(f.gameInfo.SizeX, f.gameInfo.SizeY)
 
 	for _, pos := range f.getAllCanPosition() {
 		data := pos.GetPosition()
 		view[data.X][data.Y].X = data.X
 		view[data.X][data.Y].Y = data.Y
-		view[data.X][data.Y].ObjectType = DefineType(pos.(systems.InfoSystem))
+		view[data.X][data.Y].ObjectType = defineType(pos.(systems.InfoSystem))
 	}
 
-	return trimVision(position, obj.GetVision().Radius, view, f.metaInfo.SizeX, f.metaInfo.SizeY)
+	return trimVision(position, obj.GetVision().Radius, view, f.gameInfo.SizeX, f.gameInfo.SizeY)
 }
 
 // vision return small area around entities.Tank.

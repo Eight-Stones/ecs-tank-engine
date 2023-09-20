@@ -9,7 +9,7 @@ import (
 
 // autoMovementJob  start process of changing placement ob object which can automove.
 func (f *Field) autoMovementJob(ctx context.Context) {
-	defer f.appInfo.jobWG.Done()
+	defer f.sync.jobWG.Done()
 	ticker := time.NewTicker(f.cfg.Game.Jobs.AutoMover)
 	for {
 		select {
@@ -23,8 +23,8 @@ func (f *Field) autoMovementJob(ctx context.Context) {
 
 // autoMovementJob change placement ob object which can automove.
 func (f *Field) autoMovement(_ context.Context) {
-	f.appInfo.mutex.Lock()
-	defer f.appInfo.mutex.Unlock()
+	f.sync.mutex.Lock()
+	defer f.sync.mutex.Unlock()
 	now := time.Now()
 	objects := f.getAllCanAutoMovement()
 	for i := range objects {

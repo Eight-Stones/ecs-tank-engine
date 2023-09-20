@@ -25,7 +25,7 @@ type GameConfig struct {
 	SizeX              int
 	SizeY              int
 	PreSelectPlaces    [][]int
-	PreSelectDirection []uint
+	PreSelectDirection []common.Direction
 	Jobs               JobsConfig
 }
 
@@ -61,7 +61,7 @@ func Default() *Config {
 			SizeX:              15,
 			SizeY:              15,
 			PreSelectPlaces:    [][]int{{0, 0}, {14, 0}, {14, 0}, {0, 14}},
-			PreSelectDirection: []uint{common.Right, common.Left, common.Left, common.Right},
+			PreSelectDirection: []common.Direction{common.Right, common.Left, common.Left, common.Right},
 			Jobs: JobsConfig{
 				AutoMover: time.Second,
 				Recharger: time.Millisecond * 1,

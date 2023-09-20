@@ -1,6 +1,7 @@
 package systems
 
 import (
+	"eight-stones/ecs-tank-engine/engine/common"
 	"eight-stones/ecs-tank-engine/engine/components"
 	"time"
 )
@@ -27,6 +28,6 @@ func SetRotateDone(in RotatementSystem, now time.Time) {
 }
 
 // DoRotate change direction.
-func DoRotate(in RotatementSystem, direction uint) {
+func DoRotate(in RotatementSystem, direction common.Direction) {
 	in.GetPosition().Direction = direction
 }

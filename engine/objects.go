@@ -67,10 +67,10 @@ func (f *Field) getAllCanRecharged() []systems.InfoSystem {
 
 // AddTank added new tank to game.
 func (f *Field) AddTank() (string, error) {
-	if f.NumberGamers >= f.cfg.Game.MaxGamers {
+	if f.gameInfo.NumberGamers >= f.cfg.Game.MaxGamers {
 		return "", errors.New("too much players")
 	}
-	f.NumberGamers++
+	f.gameInfo.NumberGamers++
 	return f.addTank()
 }
 

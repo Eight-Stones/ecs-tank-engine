@@ -7,10 +7,12 @@ import (
 // runJobs start inner processes.
 func (f *Field) runJobs(ctx context.Context) {
 	go func() {
-		f.appInfo.jobWG.Add(1)
+		f.sync.jobWG.Add(1)
 		go f.autoReplaceDeadJob(ctx)
-		f.appInfo.jobWG.Add(2)
+		f.sync.jobWG.Add(1)
 		go f.autoMovementJob(ctx)
-		f.appInfo.jobWG.Wait()
+		f.sync.jobWG.Add(1)
+		go f.autoInformerJob(ctx, f.cache.getOut())
+		f.sync.jobWG.Wait()
 	}()
 }

@@ -11,9 +11,9 @@ func (f *Field) checkBorder(direction uint, in systems.PositionSystem) int {
 	object := in.GetPosition()
 
 	breakLeft := object.X+incX < 0
-	breakRight := object.X+incX > f.metaInfo.SizeX-1
+	breakRight := object.X+incX > f.gameInfo.SizeX-1
 	breakBottom := object.Y+incY < 0
-	breakTop := object.Y+incY > f.metaInfo.SizeY-1
+	breakTop := object.Y+incY > f.gameInfo.SizeY-1
 
 	isBreakBorder := breakLeft || breakRight || breakBottom || breakTop
 	_, isCanDisappear := in.(systems.AutoMovementSystem)

@@ -8,7 +8,7 @@ import (
 )
 
 // rotate rotates select object.
-func (f *Field) rotate(obj systems.InfoSystem, direction uint, now time.Time) int {
+func (f *Field) rotate(obj systems.InfoSystem, direction common.Direction, now time.Time) int {
 	doing := 0b0
 	if !systems.CanRotate(obj, now) {
 		return doing | common.FailRotate | common.Ban

@@ -8,9 +8,9 @@ import (
 )
 
 // Rotate rotates entities.Tank.
-func (f *Field) Rotate(id string, direction uint) int {
-	f.appInfo.mutex.Lock()
-	defer f.appInfo.mutex.Unlock()
+func (f *Field) Rotate(id string, direction common.Direction) int {
+	f.sync.mutex.Lock()
+	defer f.sync.mutex.Unlock()
 	obj, code := f.find(id)
 	if utils.CheckBitMask(code, common.NotFound) {
 		return code
@@ -23,9 +23,9 @@ func (f *Field) Rotate(id string, direction uint) int {
 }
 
 // Move moves entities.Tank in select direction.
-func (f *Field) Move(id string, direction uint) int {
-	f.appInfo.mutex.Lock()
-	defer f.appInfo.mutex.Unlock()
+func (f *Field) Move(id string, direction common.Direction) int {
+	f.sync.mutex.Lock()
+	defer f.sync.mutex.Unlock()
 	obj, doing := f.find(id)
 	if utils.CheckBitMask(doing, common.NotFound) {
 		return doing
@@ -46,8 +46,8 @@ func (f *Field) Move(id string, direction uint) int {
 
 // Shoot shoots from entities.Tank in select direction.
 func (f *Field) Shoot(id string) int {
-	f.appInfo.mutex.Lock()
-	defer f.appInfo.mutex.Unlock()
+	f.sync.mutex.Lock()
+	defer f.sync.mutex.Unlock()
 	obj, code := f.find(id)
 	if utils.CheckBitMask(code, common.NotFound) {
 		return code
@@ -61,8 +61,8 @@ func (f *Field) Shoot(id string) int {
 
 // Vision return small area around entities.Tank.
 func (f *Field) Vision(id string) (int, View) {
-	f.appInfo.mutex.Lock()
-	defer f.appInfo.mutex.Unlock()
+	f.sync.mutex.Lock()
+	defer f.sync.mutex.Unlock()
 	obj, code := f.find(id)
 	if utils.CheckBitMask(code, common.NotFound) {
 		return code, nil
@@ -78,8 +78,8 @@ func (f *Field) Vision(id string) (int, View) {
 
 // Radar return big area around entities.Tank, but has recharge.
 func (f *Field) Radar(id string) (int, View) {
-	f.appInfo.mutex.Lock()
-	defer f.appInfo.mutex.Unlock()
+	f.sync.mutex.Lock()
+	defer f.sync.mutex.Unlock()
 	obj, code := f.find(id)
 	if utils.CheckBitMask(code, common.NotFound) {
 		return code, nil
