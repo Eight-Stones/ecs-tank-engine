@@ -11,7 +11,7 @@ type Recharge struct {
 // GetRecharge returns Recharge component.
 func (r *Recharge) GetRecharge() *Recharge { return r }
 
-// IsRechargeDone checks that rechagring is done.
+// IsRechargeDone checks that recharging is done.
 func (r *Recharge) IsRechargeDone(now time.Time) bool {
 	return r.Until.Before(now)
 }

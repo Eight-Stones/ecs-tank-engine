@@ -3,7 +3,7 @@ package components
 // Vision adds view.
 type Vision struct {
 	Radius int
-	Recharge
+	*Recharge
 }
 
 // GetVision returns Vision component.

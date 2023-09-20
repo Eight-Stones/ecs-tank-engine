@@ -19,17 +19,16 @@ func IsAliveHealthSystem(in HealthSystem) bool {
 func ChangeHPLevelHealthSystem(in HealthSystem, delta int) {
 	health := in.GetHealth()
 	switch {
+	case health.HitPoints-delta < 0:
+		health.HitPoints = 0
 	case health.HitPoints-delta <= health.MaxHitPoints:
 		health.HitPoints -= delta
 	case health.HitPoints-delta > health.MaxHitPoints:
 		health.HitPoints = health.MaxHitPoints
-	case health.HitPoints-delta <= 0:
-		health.HitPoints = 0
 	}
 }
 
 // Disappear resets the number of lives to zero.
-func Disappear(in InfoSystem) {
-	obj := in.(HealthSystem)
-	ChangeHPLevelHealthSystem(obj, obj.GetHealth().HitPoints)
+func Disappear(in HealthSystem) {
+	ChangeHPLevelHealthSystem(in, in.GetHealth().HitPoints)
 }

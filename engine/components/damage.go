@@ -20,7 +20,7 @@ func (d *Damage) GetDamage() *Damage { return d }
 type Shooting struct {
 	Ammo    int
 	MaxAmmo int
-	Recharge
+	*Recharge
 }
 
 // GetShooting return Shooting component.

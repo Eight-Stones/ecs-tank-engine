@@ -48,6 +48,4 @@ func main() {
 	cancel()
 
 	time.Sleep(time.Second)
-
-	gf.DrawResult()
 }

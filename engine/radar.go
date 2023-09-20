@@ -14,17 +14,17 @@ func (f *Field) collectRadarData(obj systems.RadarSystem) View {
 		data := pos.GetPosition()
 		view[data.X][data.Y].X = data.X
 		view[data.X][data.Y].Y = data.Y
-		view[data.X][data.Y].ObjectType = defineType(pos.(systems.InfoSystem))
+		view[data.X][data.Y].ObjectType = pos.(systems.InfoSystem).GetInfo().Type
 	}
 
 	return trimVision(position, obj.GetRadar().Radius, view, f.gameInfo.SizeX, f.gameInfo.SizeY)
 }
 
-// vision return small area around entities.Tank.
+// radar return big area around entities.Tank.
 func (f *Field) radar(obj systems.InfoSystem) (int, View) {
 	doing := 0b0
 	now := time.Now()
-	if !systems.CanVision(obj, now) {
+	if !systems.CanRadar(obj, now) {
 		return doing | common.FailRadar | common.Ban, nil
 	}
 

@@ -29,7 +29,7 @@ func NewBullet(
 	return Bullet{
 		Info: components.Info{
 			Id:     uuid.New().String(),
-			Type:   components.TypeBullet,
+			Type:   components.TypeBulletId,
 			Parent: parent.(*components.Info),
 		},
 		Position: components.Position{

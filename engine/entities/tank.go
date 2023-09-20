@@ -25,7 +25,7 @@ func NewTank(cfg *config.TankConfig) Tank {
 	return Tank{
 		Info: components.Info{
 			Id:   uuid.New().String(),
-			Type: components.TypeTank,
+			Type: components.TypeTankId,
 		},
 		Position: components.Position{
 			X:         -1,
@@ -34,13 +34,13 @@ func NewTank(cfg *config.TankConfig) Tank {
 		},
 		Vision: components.Vision{
 			Radius: cfg.Vision,
-			Recharge: components.Recharge{
+			Recharge: &components.Recharge{
 				DefaultDuration: cfg.VisionRechargeDefaultDuration,
 			},
 		},
 		Radar: components.Radar{
 			Radius: cfg.Radar,
-			Recharge: components.Recharge{
+			Recharge: &components.Recharge{
 				DefaultDuration: cfg.RadarRechargeDefaultDuration,
 			},
 		},

@@ -2,6 +2,7 @@ package engine
 
 import (
 	"eight-stones/ecs-tank-engine/engine/common"
+	"eight-stones/ecs-tank-engine/engine/components"
 	"eight-stones/ecs-tank-engine/engine/systems"
 	"time"
 )
@@ -10,7 +11,7 @@ import (
 type Cell struct {
 	X          int
 	Y          int
-	ObjectType string
+	ObjectType components.ObjectType
 }
 
 // View ...
@@ -67,7 +68,7 @@ func (f *Field) collectVisionData(obj systems.VisionSystem) View {
 		data := pos.GetPosition()
 		view[data.X][data.Y].X = data.X
 		view[data.X][data.Y].Y = data.Y
-		view[data.X][data.Y].ObjectType = defineType(pos.(systems.InfoSystem))
+		view[data.X][data.Y].ObjectType = pos.(systems.InfoSystem).GetInfo().Type
 	}
 
 	return trimVision(position, obj.GetVision().Radius, view, f.gameInfo.SizeX, f.gameInfo.SizeY)

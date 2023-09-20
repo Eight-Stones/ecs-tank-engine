@@ -17,7 +17,7 @@ func (d Direction) String() string {
 }
 
 const (
-	Undefined Direction = iota
+	UndefinedDirection Direction = iota
 	Left
 	Right
 	Up

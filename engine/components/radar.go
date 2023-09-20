@@ -3,7 +3,7 @@ package components
 // Radar adds big view.
 type Radar struct {
 	Radius int
-	Recharge
+	*Recharge
 }
 
 // GetRadar returns Radar component.

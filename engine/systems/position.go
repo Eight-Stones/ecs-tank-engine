@@ -1,9 +1,15 @@
 package systems
 
 import (
-	"eight-stones/ecs-tank-engine/engine/common"
 	"eight-stones/ecs-tank-engine/engine/components"
 )
+
+var directionIncs = map[components.Direction][]int{
+	components.Left:  {-1, 0},
+	components.Right: {1, 0},
+	components.Down:  {0, -1},
+	components.Up:    {0, 1},
+}
 
 // PositionSystem describes position system.
 type PositionSystem interface {
@@ -12,7 +18,7 @@ type PositionSystem interface {
 
 // GetIncrementPosition return increment for coordinate by position.
 func GetIncrementPosition(direction components.Direction) (x, y int) {
-	values := common.MovementValue[direction]
+	values := directionIncs[direction]
 	return values[0], values[1]
 }
 
@@ -23,8 +29,8 @@ func ChangePosition(incX, incY int, in PositionSystem) {
 	position.Y += incY
 }
 
-// CheckCollision checks that first object collide with second.
-func CheckCollision(first PositionSystem, second PositionSystem) int {
+// IsCollision checks that first object collide with second.
+func IsCollision(first PositionSystem, second PositionSystem) int {
 	if first == second {
 		return Fail
 	}

@@ -43,7 +43,7 @@ func (f *Field) move(obj systems.InfoSystem, now time.Time) int {
 	doing = doing | f.checkBorder(movement.GetPosition().Direction, movement)
 	switch {
 	case utils.CheckBitMask(doing, common.Disappear):
-		systems.Disappear(obj)
+		systems.Disappear(obj.(systems.HealthSystem))
 		return doing | common.FailStep
 	case utils.CheckBitMask(doing, common.FailBorder):
 		return doing | common.FailStep

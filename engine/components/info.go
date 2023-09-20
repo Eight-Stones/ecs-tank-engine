@@ -4,17 +4,23 @@ type ObjectType uint
 
 func (ot ObjectType) String() string {
 	switch ot {
-	case TypeTank:
-		return "Tank"
-	case TypeBullet:
-		return "bullet"
+	case TypeTankId:
+		return TypeTank
+	case TypeBulletId:
+		return TypeBullet
 	}
 	return ""
 }
 
 const (
-	TypeTank ObjectType = iota
-	TypeBullet
+	UndefinedType ObjectType = iota
+	TypeTankId
+	TypeBulletId
+)
+
+const (
+	TypeTank   = "tank"
+	TypeBullet = "bullet"
 )
 
 // Info the main component of any entity&
