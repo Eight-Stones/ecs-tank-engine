@@ -4,6 +4,7 @@ import (
 	"context"
 	"eight-stones/ecs-tank-engine/engine"
 	"eight-stones/ecs-tank-engine/engine/config"
+	"fmt"
 	"time"
 )
 
@@ -21,9 +22,15 @@ func main() {
 		panic(err)
 	}
 
+	go func() {
+		for info := range gf.GetInfoChannel() {
+			fmt.Println(info)
+		}
+	}()
+
 	ctx, cancel := context.WithCancel(context.Background())
 	gf.Start(ctx)
-	go gf.DrawConsole(ctx)
+	// go gf.DrawConsole(ctx)
 
 	time.Sleep(time.Second * 1)
 	gf.Shoot(uuid1)

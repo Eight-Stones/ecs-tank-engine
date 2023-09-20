@@ -6,7 +6,7 @@ import (
 )
 
 // checkBorder check collision with border of map.
-func (f *Field) checkBorder(direction uint, in systems.PositionSystem) int {
+func (f *Field) checkBorder(direction common.Direction, in systems.PositionSystem) int {
 	incX, incY := systems.GetIncrementPosition(direction)
 	object := in.GetPosition()
 

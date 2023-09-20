@@ -6,8 +6,28 @@ import (
 
 type ActionType uint
 
+func (at ActionType) String() string {
+	switch at {
+	case ActionCreate:
+		return "create"
+	case ActionRemove:
+		return "remove"
+	case ActionRotate:
+		return "rotate"
+	case ActionMove:
+		return "move"
+	case ActionShoot:
+		return "shoot"
+	case ActionHealth:
+		return "health"
+	}
+	return ""
+}
+
 const (
-	ActionRotate ActionType = iota
+	ActionCreate ActionType = iota
+	ActionRemove
+	ActionRotate
 	ActionMove
 	ActionShoot
 	ActionHealth
@@ -15,65 +35,45 @@ const (
 
 type Info struct {
 	Id       string
-	Type     uint
+	Type     ActionType
 	MetaInfo interface{}
 }
 
-type Rotate struct {
-	Old uint
-	New uint
-}
-
-type Position struct {
-	Old []int
-	New []int
-}
-
-type Health struct {
-	Old int
-	New int
-}
-
-type Shoot struct {
-	Position  []int
-	Direction uint
-}
-
-// Cache stores all detail actions.
-type Cache struct {
+// cache stores all detail actions.
+type cache struct {
 	mu   sync.Mutex
-	out  chan interface{}
+	out  chan Info
 	idx  int
-	data []interface{}
+	data []Info
 }
 
 // init initialize cache.
-func (c *Cache) init() {
+func (c *cache) init() {
 	c.mu = sync.Mutex{}
-	c.out = make(chan interface{})
+	c.out = make(chan Info)
 	c.idx = 0
-	c.data = make([]interface{}, 100)
+	c.data = make([]Info, 0, 100)
 }
 
 // save saves data on cache.
-func (c *Cache) save(in interface{}) {
+func (c *cache) save(in Info) {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	c.data = append(c.data, in)
 }
 
 // read return data element from cache.
-func (c *Cache) read() interface{} {
+func (c *cache) read() *Info {
 	c.mu.Lock()
 	defer c.mu.Unlock()
 	if c.idx >= len(c.data) {
 		return nil
 	}
 	defer func() { c.idx++ }()
-	return c.data[c.idx]
+	return &c.data[c.idx]
 }
 
 // getOut return chan with detail action data.
-func (c *Cache) getOut() chan interface{} {
+func (c *cache) getOut() chan Info {
 	return c.out
 }

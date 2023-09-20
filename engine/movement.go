@@ -18,6 +18,8 @@ func (f *Field) rotate(obj systems.InfoSystem, direction common.Direction, now t
 	systems.DoRotate(rotatement, direction)
 	systems.SetRotateDone(rotatement, now)
 
+	// todo send data to cache
+
 	return doing | common.OkRotate
 }
 

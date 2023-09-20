@@ -1,6 +1,7 @@
 package entities
 
 import (
+	"eight-stones/ecs-tank-engine/engine/common"
 	"eight-stones/ecs-tank-engine/engine/components"
 	"eight-stones/ecs-tank-engine/engine/config"
 	"eight-stones/ecs-tank-engine/engine/systems"
@@ -20,7 +21,7 @@ type Bullet struct {
 }
 
 // NewBullet return new instance of entity.
-func NewBullet(cfg *config.BulletConfig, parent systems.InfoSystem, x, y int, direction uint) Bullet {
+func NewBullet(cfg *config.BulletConfig, parent systems.InfoSystem, x, y int, direction common.Direction) Bullet {
 	return Bullet{
 		Info: components.Info{
 			Id:     uuid.New().String(),

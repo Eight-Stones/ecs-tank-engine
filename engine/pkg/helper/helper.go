@@ -41,7 +41,7 @@ func clear() {
 type position struct {
 	X         int
 	Y         int
-	Direction uint
+	Direction common.Direction
 }
 
 type info struct {
@@ -113,7 +113,7 @@ func prepareObjects(in map[string]map[string]interface{}) []info {
 			Position: position{
 				X:         coordinates[0],
 				Y:         coordinates[1],
-				Direction: value[common.KeyStatMovementDirection].(uint),
+				Direction: value[common.KeyStatMovementDirection].(common.Direction),
 			},
 			HitPoints: value[common.KeyStatHitPoints].(int),
 		}

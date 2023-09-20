@@ -6,14 +6,14 @@ import (
 )
 
 // autoInformerJob start process of collection action data.
-func (f *Field) autoInformerJob(ctx context.Context, out chan interface{}) {
+func (f *Field) autoInformerJob(ctx context.Context, out chan Info) {
 	defer f.sync.jobWG.Done()
 	ticker := time.NewTicker(time.Millisecond)
 	for {
 		select {
 		case <-ticker.C:
 			if data := f.autoInformer(ctx); data != nil {
-				out <- data
+				out <- *data // TODO make all as pointer
 			}
 		case <-ctx.Done():
 			return
@@ -22,6 +22,6 @@ func (f *Field) autoInformerJob(ctx context.Context, out chan interface{}) {
 }
 
 // autoInformer retrieves data.
-func (f *Field) autoInformer(_ context.Context) interface{} {
+func (f *Field) autoInformer(_ context.Context) *Info {
 	return f.cache.read()
 }

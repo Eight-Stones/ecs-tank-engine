@@ -60,7 +60,7 @@ func Default() *Config {
 			MaxGamers:          4,
 			SizeX:              15,
 			SizeY:              15,
-			PreSelectPlaces:    [][]int{{0, 0}, {14, 0}, {14, 0}, {0, 14}},
+			PreSelectPlaces:    [][]int{{0, 0}, {14, 0}, {14, 14}, {0, 14}},
 			PreSelectDirection: []common.Direction{common.Right, common.Left, common.Left, common.Right},
 			Jobs: JobsConfig{
 				AutoMover: time.Second,

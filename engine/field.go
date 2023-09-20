@@ -9,8 +9,9 @@ import (
 type Field struct {
 	cfg         *config.Config
 	sync        syncInfo
-	gameInfo    GameInfo
-	cache       Cache
+	gameInfo    gameInfo
+	cache       cache
+	cancelCtx   func()
 	Objects     []systems.InfoSystem
 	DeadObjects []systems.InfoSystem
 }
@@ -19,7 +20,7 @@ type Field struct {
 func New(cfg *config.Config) *Field {
 	field := Field{
 		cfg: cfg,
-		gameInfo: GameInfo{
+		gameInfo: gameInfo{
 			MaxNumberGamers:     cfg.Game.MaxGamers,
 			SizeX:               cfg.Game.SizeX,
 			SizeY:               cfg.Game.SizeY,

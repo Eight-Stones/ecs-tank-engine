@@ -2,8 +2,8 @@ package engine
 
 import "eight-stones/ecs-tank-engine/engine/common"
 
-// GameInfo inner info.
-type GameInfo struct {
+// gameInfo inner info.
+type gameInfo struct {
 	NumberGamers        int
 	MaxNumberGamers     int
 	SizeX               int
