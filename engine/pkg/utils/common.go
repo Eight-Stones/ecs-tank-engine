@@ -1,6 +1,6 @@
 package utils
 
-// CheckBitMask check that code contains bit from conditions.
+// CheckBitMask check that code contains all bits from conditions.
 func CheckBitMask(code int, conditions ...int) bool {
 	condition := 0
 	for i := range conditions {

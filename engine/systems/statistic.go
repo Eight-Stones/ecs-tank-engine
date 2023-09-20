@@ -10,6 +10,7 @@ type StatisticSystem interface {
 // AddAction added action code in list of actions.
 func AddAction(code int, in InfoSystem) {
 	if in.GetInfo().Parent != nil {
+		// TODO добавить сюда дополнительный код, который будет говорить о дочерности объекта
 		AddAction(code, in.GetInfo().Parent)
 		return
 	}

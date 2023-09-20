@@ -1,7 +1,7 @@
 package config
 
 import (
-	"eight-stones/ecs-tank-engine/engine/common"
+	"eight-stones/ecs-tank-engine/engine/components"
 	"time"
 )
 
@@ -25,7 +25,7 @@ type GameConfig struct {
 	SizeX              int
 	SizeY              int
 	PreSelectPlaces    [][]int
-	PreSelectDirection []common.Direction
+	PreSelectDirection []components.Direction
 	Jobs               JobsConfig
 }
 
@@ -61,7 +61,7 @@ func Default() *Config {
 			SizeX:              15,
 			SizeY:              15,
 			PreSelectPlaces:    [][]int{{0, 0}, {14, 0}, {14, 14}, {0, 14}},
-			PreSelectDirection: []common.Direction{common.Right, common.Left, common.Left, common.Right},
+			PreSelectDirection: []components.Direction{components.Right, components.Left, components.Left, components.Right},
 			Jobs: JobsConfig{
 				AutoMover: time.Second,
 				Recharger: time.Millisecond * 1,
@@ -85,7 +85,7 @@ func Default() *Config {
 		Bullet: BulletConfig{
 			HitPoints:                   1,
 			MaxHitPoints:                1,
-			MoveRechargeDefaultDuration: time.Millisecond * 300,
+			MoveRechargeDefaultDuration: time.Millisecond * 150,
 			DamagePoints:                35,
 		},
 	}

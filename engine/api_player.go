@@ -2,13 +2,14 @@ package engine
 
 import (
 	"eight-stones/ecs-tank-engine/engine/common"
+	"eight-stones/ecs-tank-engine/engine/components"
 	"eight-stones/ecs-tank-engine/engine/pkg/utils"
 	"eight-stones/ecs-tank-engine/engine/systems"
 	"time"
 )
 
 // Rotate rotates entities.Tank.
-func (f *Field) Rotate(id string, direction common.Direction) int {
+func (f *Field) Rotate(id string, direction components.Direction) int {
 	f.sync.mutex.Lock()
 	defer f.sync.mutex.Unlock()
 	obj, code := f.find(id)
@@ -23,7 +24,7 @@ func (f *Field) Rotate(id string, direction common.Direction) int {
 }
 
 // Move moves entities.Tank in select direction.
-func (f *Field) Move(id string, direction common.Direction) int {
+func (f *Field) Move(id string, direction components.Direction) int {
 	f.sync.mutex.Lock()
 	defer f.sync.mutex.Unlock()
 	obj, doing := f.find(id)

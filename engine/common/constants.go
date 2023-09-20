@@ -1,5 +1,7 @@
 package common
 
+import "eight-stones/ecs-tank-engine/engine/components"
+
 const (
 	Fail                    = 0b1
 	Ok                      = 0b10
@@ -33,9 +35,9 @@ const (
 	CanDamagedAndDamage = 0b11
 )
 
-var MovementValue = map[Direction][]int{
-	Left:  {-1, 0},
-	Right: {1, 0},
-	Down:  {0, -1},
-	Up:    {0, 1},
+var MovementValue = map[components.Direction][]int{
+	components.Left:  {-1, 0},
+	components.Right: {1, 0},
+	components.Down:  {0, -1},
+	components.Up:    {0, 1},
 }

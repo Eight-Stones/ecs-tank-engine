@@ -11,7 +11,7 @@ type PositionSystem interface {
 }
 
 // GetIncrementPosition return increment for coordinate by position.
-func GetIncrementPosition(direction common.Direction) (x, y int) {
+func GetIncrementPosition(direction components.Direction) (x, y int) {
 	values := common.MovementValue[direction]
 	return values[0], values[1]
 }

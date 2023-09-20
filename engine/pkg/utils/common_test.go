@@ -24,6 +24,14 @@ func TestCheckBitMask(t *testing.T) {
 			want: true,
 		},
 		{
+			name: "check simple code on several conditions",
+			args: args{
+				code:       common.NotFound,
+				conditions: []int{common.NotFound, common.OkBorder},
+			},
+			want: false,
+		},
+		{
 			name: "check complex `Fail` and `Border` and result `Fail` and `Border",
 			args: args{
 				code:       common.Fail | common.OkBorder,

@@ -72,6 +72,6 @@ func (f *Field) replaceDeadById(id string) {
 	}
 
 	f.DeadObjects = append(f.DeadObjects, f.Objects[selectIDx])
-	f.Objects = append(f.Objects[:selectIDx], f.Objects[selectIDx+1:]...)
 	f.cache.saveRemove(f.Objects[selectIDx].GetInfo().Id)
+	f.Objects = append(f.Objects[:selectIDx], f.Objects[selectIDx+1:]...)
 }

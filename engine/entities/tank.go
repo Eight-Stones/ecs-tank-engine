@@ -1,7 +1,6 @@
 package entities
 
 import (
-	"eight-stones/ecs-tank-engine/engine/common"
 	"eight-stones/ecs-tank-engine/engine/components"
 	"eight-stones/ecs-tank-engine/engine/config"
 	"github.com/google/uuid"
@@ -25,12 +24,13 @@ type Tank struct {
 func NewTank(cfg *config.TankConfig) Tank {
 	return Tank{
 		Info: components.Info{
-			Id: uuid.New().String(),
+			Id:   uuid.New().String(),
+			Type: components.TypeTank,
 		},
 		Position: components.Position{
 			X:         -1,
 			Y:         -1,
-			Direction: common.Right,
+			Direction: components.Right,
 		},
 		Vision: components.Vision{
 			Radius: cfg.Vision,

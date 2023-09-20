@@ -2,6 +2,7 @@ package helper
 
 import (
 	"eight-stones/ecs-tank-engine/engine/common"
+	"eight-stones/ecs-tank-engine/engine/components"
 	"fmt"
 	"os"
 	"os/exec"
@@ -41,7 +42,7 @@ func clear() {
 type position struct {
 	X         int
 	Y         int
-	Direction common.Direction
+	Direction components.Direction
 }
 
 type info struct {
@@ -113,7 +114,7 @@ func prepareObjects(in map[string]map[string]interface{}) []info {
 			Position: position{
 				X:         coordinates[0],
 				Y:         coordinates[1],
-				Direction: value[common.KeyStatMovementDirection].(common.Direction),
+				Direction: value[common.KeyStatMovementDirection].(components.Direction),
 			},
 			HitPoints: value[common.KeyStatHitPoints].(int),
 		}

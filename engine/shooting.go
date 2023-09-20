@@ -20,10 +20,25 @@ func (f *Field) shoot(obj systems.InfoSystem) int {
 
 	systems.SetShotDone(shooting, now)
 
-	doing = doing | f.move(f.createBullet(obj), now)
+	f.cache.saveShoot(
+		obj.GetInfo().Id,
+		shooting.GetShooting().Ammo,
+		obj.(systems.PositionSystem).GetPosition().Direction,
+	)
+
+	bullet := f.createBullet(obj)
+
+	doing = doing | f.move(bullet, now)
 	if utils.CheckBitMask(doing, common.FailStep) {
-		return doing | common.FailShot
+		return doing | common.OkShot
 	}
+
+	f.cache.saveCreate(
+		bullet.GetInfo().Id,
+		bullet.(systems.PositionSystem).GetPosition().Direction,
+		[]int{bullet.(systems.PositionSystem).GetPosition().X, bullet.(systems.PositionSystem).GetPosition().Y},
+		bullet.(systems.HealthSystem).GetHealth().HitPoints,
+	)
 
 	return doing | common.OkShot
 }

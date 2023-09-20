@@ -1,7 +1,15 @@
 package components
 
+type DamageType uint
+
+const (
+	UndefinedDamage DamageType = iota
+	SimpleDamage
+)
+
 // Damage describes the addition of the ability to deal damage.
 type Damage struct {
+	Type         DamageType
 	DamagePoints int
 }
 

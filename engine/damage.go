@@ -17,8 +17,17 @@ func (f *Field) defineDamageType(in systems.InfoSystem) int {
 	return result
 }
 
-// makeDamage make damage to first from second.
+// makeDamage makes damage to first from second.
 func (f *Field) makeDamage(first, second systems.InfoSystem) int {
-	systems.CauseHitDamageSystem(first.(systems.HealthSystem), second.(systems.DamageSystem))
+	fhs := first.(systems.HealthSystem)
+	sds := second.(systems.DamageSystem)
+	oldHitPoints := fhs.GetHealth().HitPoints
+	systems.CauseHitDamageSystem(fhs, sds)
+	newHitPoints := fhs.GetHealth().HitPoints
+	f.cache.saveCollision(
+		first.GetInfo().Id,
+		oldHitPoints,
+		newHitPoints,
+	)
 	return common.Damaged
 }

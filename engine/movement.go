@@ -2,13 +2,14 @@ package engine
 
 import (
 	"eight-stones/ecs-tank-engine/engine/common"
+	"eight-stones/ecs-tank-engine/engine/components"
 	"eight-stones/ecs-tank-engine/engine/pkg/utils"
 	"eight-stones/ecs-tank-engine/engine/systems"
 	"time"
 )
 
 // rotate rotates select object.
-func (f *Field) rotate(obj systems.InfoSystem, direction common.Direction, now time.Time) int {
+func (f *Field) rotate(obj systems.InfoSystem, direction components.Direction, now time.Time) int {
 	doing := 0b0
 	if !systems.CanRotate(obj, now) {
 		return doing | common.FailRotate | common.Ban
@@ -18,7 +19,11 @@ func (f *Field) rotate(obj systems.InfoSystem, direction common.Direction, now t
 	systems.DoRotate(rotatement, direction)
 	systems.SetRotateDone(rotatement, now)
 
-	// todo send data to cache
+	f.cache.saveRotatement(
+		obj.GetInfo().Id,
+		rotatement.GetPosition().Direction,
+		direction,
+	)
 
 	return doing | common.OkRotate
 }
@@ -51,9 +56,17 @@ func (f *Field) move(obj systems.InfoSystem, now time.Time) int {
 		return (doing ^ common.NoCollision) | common.FailStep
 	}
 
+	oldP := []int{movement.GetPosition().X, movement.GetPosition().Y}
+
 	systems.DoStep(movement)
 
-	doing = doing | common.OkStep
+	newP := []int{movement.GetPosition().X, movement.GetPosition().Y}
 
-	return doing
+	f.cache.saveStep(
+		obj.GetInfo().Id,
+		oldP,
+		newP,
+	)
+
+	return doing | common.OkStep
 }

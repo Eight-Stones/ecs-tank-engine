@@ -1,6 +1,8 @@
 package engine
 
-import "eight-stones/ecs-tank-engine/engine/common"
+import (
+	"eight-stones/ecs-tank-engine/engine/components"
+)
 
 // gameInfo inner info.
 type gameInfo struct {
@@ -9,5 +11,5 @@ type gameInfo struct {
 	SizeX               int
 	SizeY               int
 	PreSelectPlaces     [][]int
-	PreSelectDirections []common.Direction
+	PreSelectDirections []components.Direction
 }
