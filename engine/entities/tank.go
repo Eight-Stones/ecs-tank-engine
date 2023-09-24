@@ -64,7 +64,7 @@ func NewTank(cfg *config.TankConfig) Tank {
 		Shooting: components.Shooting{
 			Ammo:    cfg.Ammo,
 			MaxAmmo: cfg.MaxAmmo,
-			Recharge: components.Recharge{
+			Recharge: &components.Recharge{
 				DefaultDuration: cfg.ShootRechargeDefaultDuration,
 			},
 		},

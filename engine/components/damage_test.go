@@ -35,7 +35,7 @@ func TestShooting_HasAmmo(t *testing.T) {
 			s := &Shooting{
 				Ammo:     tt.fields.Ammo,
 				MaxAmmo:  tt.fields.MaxAmmo,
-				Recharge: tt.fields.Recharge,
+				Recharge: &tt.fields.Recharge,
 			}
 			if got := s.HasAmmo(); got != tt.want {
 				t.Errorf("HasAmmo() = %v, want %v", got, tt.want)
