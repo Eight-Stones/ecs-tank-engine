@@ -1,0 +1,15 @@
+package engine
+
+import (
+	"ecs-tank-engine/components"
+)
+
+// gameInfo inner info.
+type gameInfo struct {
+	NumberGamers        int
+	MaxNumberGamers     int
+	SizeX               int
+	SizeY               int
+	PreSelectPlaces     [][]int
+	PreSelectDirections []components.Direction
+}
