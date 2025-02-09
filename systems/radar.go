@@ -3,7 +3,7 @@ package systems
 import (
 	"time"
 
-	"ecs-tank-engine/components"
+	"github.com/Eight-Stones/ecs-tank-engine/components"
 )
 
 // RadarSystem describes radar system.

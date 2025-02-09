@@ -1,8 +1,8 @@
 package engine
 
 import (
-	"ecs-tank-engine/common"
-	"ecs-tank-engine/systems"
+	"github.com/Eight-Stones/ecs-tank-engine/common"
+	"github.com/Eight-Stones/ecs-tank-engine/systems"
 )
 
 // defineDamageType defines type of damage on object.

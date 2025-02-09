@@ -3,10 +3,10 @@ package engine
 import (
 	"time"
 
-	"ecs-tank-engine/common"
-	"ecs-tank-engine/components"
-	"ecs-tank-engine/pkg/utils"
-	"ecs-tank-engine/systems"
+	"github.com/Eight-Stones/ecs-tank-engine/common"
+	"github.com/Eight-Stones/ecs-tank-engine/components"
+	"github.com/Eight-Stones/ecs-tank-engine/pkg/utils"
+	"github.com/Eight-Stones/ecs-tank-engine/systems"
 )
 
 // rotate rotates select object.

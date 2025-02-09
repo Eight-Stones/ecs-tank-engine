@@ -1,8 +1,9 @@
 package systems
 
 import (
-	"ecs-tank-engine/components"
 	"testing"
+
+	"github.com/Eight-Stones/ecs-tank-engine/components"
 )
 
 func TestIsAliveHealthSystem(t *testing.T) {

@@ -1,8 +1,9 @@
 package systems
 
 import (
-	"ecs-tank-engine/components"
 	"time"
+
+	"github.com/Eight-Stones/ecs-tank-engine/components"
 )
 
 // MovementSystem describes movement system.

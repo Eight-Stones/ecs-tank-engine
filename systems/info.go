@@ -1,6 +1,6 @@
 package systems
 
-import "ecs-tank-engine/components"
+import "github.com/Eight-Stones/ecs-tank-engine/components"
 
 // InfoSystem describes info system.
 type InfoSystem interface {

@@ -3,9 +3,9 @@ package engine
 import (
 	"time"
 
-	"ecs-tank-engine/common"
-	"ecs-tank-engine/components"
-	"ecs-tank-engine/systems"
+	"github.com/Eight-Stones/ecs-tank-engine/common"
+	"github.com/Eight-Stones/ecs-tank-engine/components"
+	"github.com/Eight-Stones/ecs-tank-engine/systems"
 )
 
 // Cell ...

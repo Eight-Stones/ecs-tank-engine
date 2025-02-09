@@ -5,10 +5,10 @@ import (
 	"testing"
 	"time"
 
-	"ecs-tank-engine/common"
-	"ecs-tank-engine/components"
-	"ecs-tank-engine/entities"
-	"ecs-tank-engine/systems"
+	"github.com/Eight-Stones/ecs-tank-engine/common"
+	"github.com/Eight-Stones/ecs-tank-engine/components"
+	"github.com/Eight-Stones/ecs-tank-engine/entities"
+	"github.com/Eight-Stones/ecs-tank-engine/systems"
 )
 
 func TestField_Rotate(t *testing.T) {

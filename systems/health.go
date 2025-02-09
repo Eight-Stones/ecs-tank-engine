@@ -1,6 +1,6 @@
 package systems
 
-import "ecs-tank-engine/components"
+import "github.com/Eight-Stones/ecs-tank-engine/components"
 
 // HealthSystem describes Health system.
 type HealthSystem interface {

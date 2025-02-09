@@ -4,7 +4,7 @@ import (
 	"testing"
 	"time"
 
-	"ecs-tank-engine/components"
+	"github.com/Eight-Stones/ecs-tank-engine/components"
 )
 
 func TestCanShoot(t *testing.T) {

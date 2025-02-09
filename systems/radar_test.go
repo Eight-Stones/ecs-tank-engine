@@ -1,9 +1,10 @@
 package systems
 
 import (
-	"ecs-tank-engine/components"
 	"testing"
 	"time"
+
+	"github.com/Eight-Stones/ecs-tank-engine/components"
 )
 
 func TestCanRadar(t *testing.T) {

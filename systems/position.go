@@ -1,7 +1,7 @@
 package systems
 
 import (
-	"ecs-tank-engine/components"
+	"github.com/Eight-Stones/ecs-tank-engine/components"
 )
 
 var directionIncs = map[components.Direction][]int{

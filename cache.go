@@ -3,7 +3,7 @@ package engine
 import (
 	"sync"
 
-	"ecs-tank-engine/components"
+	"github.com/Eight-Stones/ecs-tank-engine/components"
 )
 
 type ActionType uint

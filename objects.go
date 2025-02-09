@@ -3,9 +3,9 @@ package engine
 import (
 	"errors"
 
-	"ecs-tank-engine/common"
-	"ecs-tank-engine/entities"
-	"ecs-tank-engine/systems"
+	"github.com/Eight-Stones/ecs-tank-engine/common"
+	"github.com/Eight-Stones/ecs-tank-engine/entities"
+	"github.com/Eight-Stones/ecs-tank-engine/systems"
 )
 
 // find finds object by his id.

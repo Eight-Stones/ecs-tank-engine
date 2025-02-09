@@ -1,11 +1,12 @@
 package entities
 
 import (
-	"ecs-tank-engine/components"
-	"ecs-tank-engine/config"
-	"ecs-tank-engine/systems"
-	"github.com/google/uuid"
 	"time"
+
+	"github.com/Eight-Stones/ecs-tank-engine/components"
+	"github.com/Eight-Stones/ecs-tank-engine/config"
+	"github.com/Eight-Stones/ecs-tank-engine/systems"
+	"github.com/google/uuid"
 )
 
 // Bullet tank shell.

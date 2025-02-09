@@ -1,9 +1,10 @@
 package systems
 
 import (
-	"ecs-tank-engine/components"
 	"reflect"
 	"testing"
+
+	"github.com/Eight-Stones/ecs-tank-engine/components"
 )
 
 func TestAddAction(t *testing.T) {

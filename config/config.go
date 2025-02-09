@@ -1,8 +1,9 @@
 package config
 
 import (
-	"ecs-tank-engine/components"
 	"time"
+
+	"github.com/Eight-Stones/ecs-tank-engine/components"
 )
 
 // Config main config.

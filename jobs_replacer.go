@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"ecs-tank-engine/systems"
+	"github.com/Eight-Stones/ecs-tank-engine/systems"
 )
 
 // autoReplaceDeadJob start process of replacing dead object to other list.

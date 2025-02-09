@@ -3,7 +3,7 @@ package engine
 import (
 	"context"
 
-	"ecs-tank-engine/entities"
+	"github.com/Eight-Stones/ecs-tank-engine/entities"
 )
 
 // Start begin processes of engine.

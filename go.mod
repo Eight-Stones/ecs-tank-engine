@@ -1,4 +1,4 @@
-module ecs-tank-engine
+module github.com/Eight-Stones/ecs-tank-engine
 
 go 1.23.1
 

@@ -1,8 +1,8 @@
 package engine
 
 import (
-	"ecs-tank-engine/config"
-	"ecs-tank-engine/systems"
+	"github.com/Eight-Stones/ecs-tank-engine/config"
+	"github.com/Eight-Stones/ecs-tank-engine/systems"
 )
 
 // Field game field.
