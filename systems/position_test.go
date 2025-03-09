@@ -3,7 +3,7 @@ package systems
 import (
 	"testing"
 
-	"github.com/Eight-Stones/ecs-tank-engine/components"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/components"
 )
 
 func TestGetIncrementPosition(t *testing.T) {

@@ -3,7 +3,7 @@ package utils
 import (
 	"testing"
 
-	"github.com/Eight-Stones/ecs-tank-engine/common"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/common"
 )
 
 func TestCheckBitMask(t *testing.T) {

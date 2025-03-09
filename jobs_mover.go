@@ -4,8 +4,8 @@ import (
 	"context"
 	"time"
 
-	"github.com/Eight-Stones/ecs-tank-engine/common"
-	"github.com/Eight-Stones/ecs-tank-engine/pkg/utils"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/common"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/pkg/utils"
 )
 
 // autoMovementJob  start process of changing placement ob object which can automove.

@@ -3,10 +3,10 @@ package engine
 import (
 	"time"
 
-	"github.com/Eight-Stones/ecs-tank-engine/common"
-	"github.com/Eight-Stones/ecs-tank-engine/entities"
-	"github.com/Eight-Stones/ecs-tank-engine/pkg/utils"
-	"github.com/Eight-Stones/ecs-tank-engine/systems"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/common"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/entities"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/pkg/utils"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/systems"
 )
 
 // shoot shoots from tank.

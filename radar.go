@@ -3,8 +3,8 @@ package engine
 import (
 	"time"
 
-	"github.com/Eight-Stones/ecs-tank-engine/common"
-	"github.com/Eight-Stones/ecs-tank-engine/systems"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/common"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/systems"
 )
 
 func (f *Field) collectRadarData(obj systems.RadarSystem) View {

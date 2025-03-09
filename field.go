@@ -1,8 +1,8 @@
 package engine
 
 import (
-	"github.com/Eight-Stones/ecs-tank-engine/config"
-	"github.com/Eight-Stones/ecs-tank-engine/systems"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/config"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/systems"
 )
 
 // Field game field.
@@ -17,7 +17,12 @@ type Field struct {
 }
 
 // New create new instance.
-func New(cfg *config.Config) *Field {
+func New(opt ...config.Option) *Field {
+	cfg := config.Default()
+	for _, o := range opt {
+		o(cfg)
+	}
+
 	field := Field{
 		cfg: cfg,
 		gameInfo: gameInfo{

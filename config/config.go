@@ -3,8 +3,15 @@ package config
 import (
 	"time"
 
-	"github.com/Eight-Stones/ecs-tank-engine/components"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/components"
 )
+
+const (
+	Left  = components.Left
+	Right = components.Right
+)
+
+type Direction = components.Direction
 
 // Config main config.
 type Config struct {
@@ -62,7 +69,7 @@ func Default() *Config {
 			SizeX:              15,
 			SizeY:              15,
 			PreSelectPlaces:    [][]int{{0, 0}, {14, 0}, {14, 14}, {0, 14}},
-			PreSelectDirection: []components.Direction{components.Right, components.Left, components.Left, components.Right},
+			PreSelectDirection: []Direction{Right, Left, Left, Right},
 			Jobs: JobsConfig{
 				AutoMover: time.Second,
 				Recharger: time.Millisecond * 1,

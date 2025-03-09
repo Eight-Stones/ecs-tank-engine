@@ -1,6 +1,6 @@
 package systems
 
-import "github.com/Eight-Stones/ecs-tank-engine/components"
+import "github.com/Eight-Stones/ecs-tank-engine/v2/components"
 
 // DamageSystem describes interface of Damage system.
 type DamageSystem interface {

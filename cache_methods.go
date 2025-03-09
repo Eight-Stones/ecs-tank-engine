@@ -1,7 +1,7 @@
 package engine
 
 import (
-	"github.com/Eight-Stones/ecs-tank-engine/components"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/components"
 )
 
 type Create struct {

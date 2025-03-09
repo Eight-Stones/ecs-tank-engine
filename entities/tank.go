@@ -1,8 +1,8 @@
 package entities
 
 import (
-	"github.com/Eight-Stones/ecs-tank-engine/components"
-	"github.com/Eight-Stones/ecs-tank-engine/config"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/components"
+	"github.com/Eight-Stones/ecs-tank-engine/v2/config"
 	"github.com/google/uuid"
 )
 
