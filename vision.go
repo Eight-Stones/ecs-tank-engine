@@ -20,9 +20,9 @@ type View [][]Cell
 
 // prepareView prepared empty view.
 func prepareView(x, y int) View {
-	view := make(View, y-1)
+	view := make(View, y)
 	for idx := range view {
-		view[idx] = make([]Cell, x-1)
+		view[idx] = make([]Cell, x)
 	}
 	return view
 }
