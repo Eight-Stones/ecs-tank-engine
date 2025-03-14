@@ -11,6 +11,8 @@ import (
 func (f *Field) autoReplaceDeadJob(ctx context.Context) {
 	defer f.sync.jobWG.Done()
 	ticker := time.NewTicker(f.cfg.Game.Jobs.Replacer)
+	defer ticker.Stop()
+
 	for {
 		select {
 		case <-ticker.C:
@@ -22,8 +24,10 @@ func (f *Field) autoReplaceDeadJob(ctx context.Context) {
 }
 
 // autoReplaceDead replace dead object to other list.
-func (f *Field) autoReplaceDead(_ context.Context) {
-	f.sync.mutex.Lock()
+func (f *Field) autoReplaceDead(ctx context.Context) {
+	if !f.tryLockWithContext(ctx) {
+		return
+	}
 	defer f.sync.mutex.Unlock()
 	f.autoReplace()
 }

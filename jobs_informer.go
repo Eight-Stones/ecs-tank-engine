@@ -9,6 +9,8 @@ import (
 func (f *Field) autoInformerJob(ctx context.Context, out chan Info) {
 	defer f.sync.jobWG.Done()
 	ticker := time.NewTicker(time.Millisecond)
+	defer ticker.Stop()
+
 	for {
 		select {
 		case <-ticker.C:

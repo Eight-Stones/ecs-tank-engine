@@ -12,6 +12,8 @@ import (
 func (f *Field) autoMovementJob(ctx context.Context) {
 	defer f.sync.jobWG.Done()
 	ticker := time.NewTicker(f.cfg.Game.Jobs.AutoMover)
+	defer ticker.Stop()
+
 	for {
 		select {
 		case <-ticker.C:
@@ -22,9 +24,11 @@ func (f *Field) autoMovementJob(ctx context.Context) {
 	}
 }
 
-// autoMovementJob change placement ob object which can automove.
-func (f *Field) autoMovement(_ context.Context) {
-	f.sync.mutex.Lock()
+// autoMovement change placement ob object which can automove.
+func (f *Field) autoMovement(ctx context.Context) {
+	if !f.tryLockWithContext(ctx) {
+		return
+	}
 	defer f.sync.mutex.Unlock()
 	now := time.Now()
 	objects := f.getAllCanAutoMovement()

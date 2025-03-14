@@ -1,6 +1,9 @@
 package engine
 
 import (
+	"context"
+	"time"
+
 	"github.com/Eight-Stones/ecs-tank-engine/v2/config"
 	"github.com/Eight-Stones/ecs-tank-engine/v2/systems"
 )
@@ -36,4 +39,19 @@ func New(opt ...config.Option) *Field {
 	field.sync.init()
 	field.cache.init()
 	return &field
+}
+
+// Вспомогательный метод для безопасного захвата мьютекса
+func (f *Field) tryLockWithContext(ctx context.Context) bool {
+	for {
+		select {
+		case <-ctx.Done():
+			return false
+		default:
+			if f.sync.mutex.TryLock() {
+				return true
+			}
+			time.Sleep(10 * time.Millisecond) // Избегаем busy loop
+		}
+	}
 }
