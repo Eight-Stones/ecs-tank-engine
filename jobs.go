@@ -13,6 +13,5 @@ func (f *Field) runJobs(ctx context.Context) {
 		go f.autoMovementJob(ctx)
 		f.sync.jobWG.Add(1)
 		go f.autoInformerJob(ctx, f.cache.getOut())
-		f.sync.jobWG.Wait()
 	}()
 }
