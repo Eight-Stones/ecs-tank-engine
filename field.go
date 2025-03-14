@@ -41,7 +41,6 @@ func New(opt ...config.Option) *Field {
 	return &field
 }
 
-// Вспомогательный метод для безопасного захвата мьютекса
 func (f *Field) tryLockWithContext(ctx context.Context) bool {
 	for {
 		select {
@@ -51,7 +50,11 @@ func (f *Field) tryLockWithContext(ctx context.Context) bool {
 			if f.sync.mutex.TryLock() {
 				return true
 			}
-			time.Sleep(10 * time.Millisecond) // Избегаем busy loop
+			select {
+			case <-time.After(10 * time.Millisecond):
+			case <-ctx.Done():
+				return false
+			}
 		}
 	}
 }

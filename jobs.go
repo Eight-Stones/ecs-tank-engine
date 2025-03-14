@@ -12,6 +12,6 @@ func (f *Field) runJobs(ctx context.Context) {
 	f.sync.jobWG.Add(1)
 	go f.autoMovementJob(ctx)
 
-	f.sync.jobWG.Add(1)
-	go f.autoInformerJob(ctx, f.cache.getOut())
+	//f.sync.jobWG.Add(1)
+	//go f.autoInformerJob(ctx, f.cache.getOut())
 }
