@@ -60,7 +60,7 @@ type cache struct {
 // init initialize cache.
 func (c *cache) init() {
 	c.mu = sync.Mutex{}
-	c.out = make(chan Info)
+	c.out = make(chan Info, 100)
 	c.idx = 0
 	c.data = make([]Info, 0, 100)
 }
@@ -86,4 +86,8 @@ func (c *cache) read() *Info {
 // getOut return chan with detail action data.
 func (c *cache) getOut() chan Info {
 	return c.out
+}
+
+func (c *cache) close() {
+	close(c.out)
 }
