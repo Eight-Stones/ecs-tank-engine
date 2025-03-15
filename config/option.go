@@ -165,7 +165,7 @@ func WithBulletMaxHP(in int) Option {
 // WithBulletMoveRecharge sets recharge of bullet move.
 func WithBulletMoveRecharge(in time.Duration) Option {
 	return func(o *Config) {
-		o.Tank.MoveRechargeDefaultDuration = in
+		o.Bullet.MoveRechargeDefaultDuration = in
 	}
 }
 
