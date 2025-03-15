@@ -29,5 +29,6 @@ func SetRotateDone(in RotatementSystem, now time.Time) {
 
 // DoRotate change direction.
 func DoRotate(in RotatementSystem, direction components.Direction) {
+	// todo need to check direction on existing
 	in.GetPosition().Direction = direction
 }
